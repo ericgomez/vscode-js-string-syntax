@@ -1,0 +1,68 @@
+{
+  "name": "js-string-syntax",
+  "displayName": "JS String Syntax",
+  "description": "Syntax highlighting for HTML and SQL inside JavaScript strings",
+  "version": "0.1.0",
+  "publisher": "ericgomez",
+  "icon": "images/logo.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "grammars": [
+      {
+        "path": "./syntaxes/inference.tmLanguage.json",
+        "scopeName": "source.js.inference",
+        "injectTo": [
+          "source.js",
+          "source.ts",
+          "source.jsx",
+          "source.tsx"
+        ],
+        "embeddedLanguages": {
+          "text.html.embedded.js": "html"
+        }
+      },
+      {
+        "path": "./syntaxes/js-html.tmLanguage.json",
+        "scopeName": "source.js.html",
+        "injectTo": [
+          "source.js",
+          "source.ts",
+          "source.jsx",
+          "source.tsx"
+        ]
+      },
+      {
+        "path": "./syntaxes/js-sql.tmLanguage.json",
+        "scopeName": "source.js.sql",
+        "injectTo": [
+          "source.js",
+          "source.ts",
+          "source.jsx",
+          "source.tsx"
+        ]
+      }
+    ]
+  },
+  "keywords": [
+    "javascript",
+    "html",
+    "sql",
+    "highlight",
+    "string",
+    "syntax"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericgomez/vscode-js-string-syntax.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ericgomez/vscode-js-string-syntax/issues",
+    "email": "eric.gomez.sanchez@gmail.com"
+  }
+}
