@@ -97,32 +97,50 @@
 					"contentName": "source.sql.embedded.js",
 					"patterns": [
 						{
+							"begin": "'",
+							"end": "'",
+							"name": "string.quoted.single.sql",
+							"patterns": [
+								{
+									"include": "#js-interpolation"
+								}
+							]
+						},
+						{
+							"begin": "\"",
+							"end": "\"",
+							"name": "string.quoted.double.sql",
+							"patterns": [
+								{
+									"include": "#js-interpolation"
+								}
+							]
+						},
+						{
 							"include": "#js-interpolation"
 						},
 						{
 							"include": "source.sql"
 						}
 					]
-				},
-				{
-					"include": "#js-interpolation"
 				}
 			]
 		},
 		"js-interpolation": {
+			"name": "meta.template.expression.js",
 			"begin": "\\${",
-			"end": "}",
 			"beginCaptures": {
 				"0": {
 					"name": "punctuation.definition.template-expression.begin.js"
 				}
 			},
+			"end": "}",
 			"endCaptures": {
 				"0": {
 					"name": "punctuation.definition.template-expression.end.js"
 				}
 			},
-			"contentName": "meta.embedded.line.js",
+			"contentName": "source.js.embedded.expression",
 			"patterns": [
 				{
 					"include": "source.js"

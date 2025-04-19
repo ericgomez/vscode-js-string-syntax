@@ -97,6 +97,31 @@
 					"contentName": "text.html.embedded.js",
 					"patterns": [
 						{
+							"begin": "(<)(/?[a-zA-Z][a-zA-Z0-9]*)",
+							"beginCaptures": {
+								"1": {
+									"name": "punctuation.definition.tag.begin.html"
+								},
+								"2": {
+									"name": "entity.name.tag.html"
+								}
+							},
+							"end": "(>)",
+							"endCaptures": {
+								"1": {
+									"name": "punctuation.definition.tag.end.html"
+								}
+							},
+							"patterns": [
+								{
+									"include": "#html-tag-attributes"
+								},
+								{
+									"include": "#js-interpolation"
+								}
+							]
+						},
+						{
 							"include": "#js-interpolation"
 						},
 						{
@@ -106,20 +131,56 @@
 				}
 			]
 		},
+		"html-tag-attributes": {
+			"match": "\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?",
+			"captures": {
+				"1": {
+					"name": "entity.other.attribute-name.html"
+				},
+				"2": {
+					"name": "punctuation.separator.key-value.html"
+				},
+				"3": {
+					"name": "string.quoted.double.html",
+					"patterns": [
+						{
+							"include": "#js-interpolation"
+						}
+					]
+				},
+				"4": {
+					"name": "string.quoted.single.html",
+					"patterns": [
+						{
+							"include": "#js-interpolation"
+						}
+					]
+				},
+				"5": {
+					"name": "string.unquoted.html",
+					"patterns": [
+						{
+							"include": "#js-interpolation"
+						}
+					]
+				}
+			}
+		},
 		"js-interpolation": {
+			"name": "meta.template.expression.js",
 			"begin": "\\${",
-			"end": "}",
 			"beginCaptures": {
 				"0": {
 					"name": "punctuation.definition.template-expression.begin.js"
 				}
 			},
+			"end": "}",
 			"endCaptures": {
 				"0": {
 					"name": "punctuation.definition.template-expression.end.js"
 				}
 			},
-			"contentName": "meta.embedded.line.js",
+			"contentName": "source.js.embedded.expression",
 			"patterns": [
 				{
 					"include": "source.js"
