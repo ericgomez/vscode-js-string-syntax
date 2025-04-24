@@ -16,19 +16,16 @@
 
 ### Example
 
-#### HTML Example (Explicit)
-```js
-const htmlTemplate = /*html*/ `
-  <div class="container">
-    <h1>Hello, ${username}!</h1>
-    <p>Welcome to our application</p>
-  </div>
-`
-```
+#### HTML Example
 
-#### SQL Example (Explicit)
+![html](./images/html_example.png)
+
+#### SQL Example
+
+![sql](./images/sql_example.png)
+
 ```js
-const query = /*sql*/ "SELECT * FROM users;"
+const query = /*sql*/ `SET TRANSACTION ISOLATION LEVEL READ COMMITTED`;
 ```
 
 Visual Studio Code will apply HTML, and SQL syntax highlighting to the content of the strings, improving readability and streamlining development.
