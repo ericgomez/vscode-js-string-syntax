@@ -30,6 +30,35 @@ const query = /*sql*/ `SET TRANSACTION ISOLATION LEVEL READ COMMITTED`;
 
 Visual Studio Code will apply HTML, and SQL syntax highlighting to the content of the strings, improving readability and streamlining development.
 
+### Customization
+
+Some themes will require customizing the appearance of embedded code by adding TextMate scopes to your VS Code configuration. Below is a basic configuration for the `settings.json` file, but you can add more scopes as needed for your specific customization requirements:
+
+```json
+"editor.tokenColorCustomizations": {
+    "textMateRules": [
+        {
+            "scope": [
+                "string.template.js text.html.embedded.js",
+                "string.quoted.double.js text.html.embedded.js",
+                "string.quoted.single.js text.html.embedded.js",
+                "string.quoted.single.js punctuation.definition.tag.begin",
+                "string.quoted.single.js punctuation.definition.tag.end",
+                "string.quoted.double.js punctuation.definition.tag.begin",
+                "string.quoted.double.js punctuation.definition.tag.end",
+                "string.template.js punctuation.definition.tag.begin",
+                "string.template.js punctuation.definition.tag.end"
+            ],
+            "settings": {
+                "foreground": "#ABB2BF"
+            }
+        }
+    ]
+}
+```
+
+You can modify the hex color values to match your preferred color scheme.
+
 ### Installation
 
 1. Open Visual Studio Code.

@@ -37,6 +37,9 @@
 					"contentName": "text.html.embedded.js",
 					"patterns": [
 						{
+							"include": "#escape-string-single"
+						},
+						{
 							"include": "text.html.basic"
 						}
 					]
@@ -66,6 +69,9 @@
 					"end": "(?=\")",
 					"contentName": "text.html.embedded.js",
 					"patterns": [
+						{
+							"include": "#escape-string-double"
+						},
 						{
 							"include": "text.html.basic"
 						}
@@ -120,6 +126,9 @@
 									"include": "#js-interpolation"
 								}
 							]
+						},
+						{
+							"include": "#escape-string-template"
 						},
 						{
 							"include": "#js-interpolation"
@@ -186,6 +195,18 @@
 					"include": "source.js"
 				}
 			]
+		},
+		"escape-string-single": {
+			"match": "\\\\(['\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
+			"name": "constant.character.escape.php"
+		},
+		"escape-string-double": {
+			"match": "\\\\([\"\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
+			"name": "constant.character.escape.php"
+		},
+		"escape-string-template": {
+			"match": "\\\\(['\"\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
+			"name": "constant.character.escape.php"
 		}
 	}
 }
