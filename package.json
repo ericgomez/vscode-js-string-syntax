@@ -2,7 +2,7 @@
   "name": "js-string-syntax",
   "displayName": "JS String Syntax",
   "description": "Syntax highlighting for HTML and SQL inside JavaScript strings",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "publisher": "ericgomez",
   "icon": "images/logo.png",
   "license": "MIT",
@@ -31,6 +31,16 @@
       {
         "path": "./syntaxes/selector.tmLanguage.json",
         "scopeName": "source.js.selector",
+        "injectTo": [
+          "source.js",
+          "source.ts",
+          "source.jsx",
+          "source.tsx"
+        ]
+      },
+      {
+        "path": "./syntaxes/js-xml.tmLanguage.json",
+        "scopeName": "source.js.xml",
         "injectTo": [
           "source.js",
           "source.ts",

@@ -1,0 +1,172 @@
+{
+    "scopeName": "source.js.xml",
+    "injectionSelector": "L:source.js -comment -(string -meta.embedded), L:source.jsx -comment -(string -meta.embedded), L:source.js.jsx -comment -(string -meta.embedded), L:source.ts -comment -(string -meta.embedded), L:source.tsx -comment -(string -meta.embedded)",
+    "patterns": [
+        {
+            "include": "#xml-string-single"
+        },
+        {
+            "include": "#xml-string-double"
+        },
+        {
+            "include": "#xml-string-template"
+        }
+    ],
+    "repository": {
+        "xml-string-single": {
+            "begin": "(/\\*\\s?xml\\s?\\*/|/\\*\\s?svg\\s?\\*/)\\s*(')",
+            "end": "(')",
+            "beginCaptures": {
+                "1": {
+                    "name": "comment.block.js"
+                },
+                "2": {
+                    "name": "string.quoted.single.js punctuation.definition.string.begin.js"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "string.quoted.single.js punctuation.definition.string.end.js"
+                }
+            },
+            "contentName": "string.quoted.single.js",
+            "patterns": [
+                {
+                    "begin": "(?<=')",
+                    "end": "(?=')",
+                    "contentName": "text.xml.embedded.js",
+                    "patterns": [
+                        {
+                            "include": "#escape-string-single"
+                        },
+                        {
+                            "include": "text.xml"
+                        }
+                    ]
+                }
+            ]
+        },
+        "xml-string-double": {
+            "begin": "(/\\*\\s?xml\\s?\\*/|/\\*\\s?svg\\s?\\*/)\\s*(\")",
+            "end": "(\")",
+            "beginCaptures": {
+                "1": {
+                    "name": "comment.block.js"
+                },
+                "2": {
+                    "name": "string.quoted.double.js punctuation.definition.string.begin.js"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "string.quoted.double.js punctuation.definition.string.end.js"
+                }
+            },
+            "contentName": "string.quoted.double.js",
+            "patterns": [
+                {
+                    "begin": "(?<=\")",
+                    "end": "(?=\")",
+                    "contentName": "text.xml.embedded.js",
+                    "patterns": [
+                        {
+                            "include": "#escape-string-double"
+                        },
+                        {
+                            "include": "text.xml"
+                        }
+                    ]
+                }
+            ]
+        },
+        "xml-string-template": {
+            "begin": "(/\\*\\s?xml\\s?\\*/|/\\*\\s?svg\\s?\\*/)\\s*(`)",
+            "end": "(`)",
+            "beginCaptures": {
+                "1": {
+                    "name": "comment.block.js"
+                },
+                "2": {
+                    "name": "string.template.js punctuation.definition.string.template.begin.js"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "string.template.js punctuation.definition.string.template.end.js"
+                }
+            },
+            "contentName": "string.template.js",
+            "patterns": [
+                {
+                    "begin": "(?<=`)",
+                    "end": "(?=`)",
+                    "contentName": "text.xml.embedded.js",
+                    "patterns": [
+                        {
+                            "begin": "'",
+                            "end": "'",
+                            "name": "string.quoted.single.xml",
+                            "patterns": [
+                                {
+                                    "include": "#js-interpolation"
+                                }
+                            ]
+                        },
+                        {
+                            "begin": "\"",
+                            "end": "\"",
+                            "name": "string.quoted.double.xml",
+                            "patterns": [
+                                {
+                                    "include": "#js-interpolation"
+                                }
+                            ]
+                        },
+                        {
+                            "include": "#escape-string-template"
+                        },
+                        {
+                            "include": "#js-interpolation"
+                        },
+                        {
+                            "include": "text.xml"
+                        }
+                    ]
+                }
+            ]
+        },
+        "js-interpolation": {
+            "name": "meta.template.expression.js",
+            "begin": "\\${",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.template-expression.begin.js"
+                }
+            },
+            "end": "}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.template-expression.end.js"
+                }
+            },
+            "contentName": "source.js.embedded.expression",
+            "patterns": [
+                {
+                    "include": "source.js"
+                }
+            ]
+        },
+        "escape-string-single": {
+            "match": "\\\\(['\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
+            "name": "constant.character.escape.php"
+        },
+        "escape-string-double": {
+            "match": "\\\\([\"\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
+            "name": "constant.character.escape.php"
+        },
+        "escape-string-template": {
+            "match": "\\\\(['\"\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
+            "name": "constant.character.escape.php"
+        }
+    }
+}

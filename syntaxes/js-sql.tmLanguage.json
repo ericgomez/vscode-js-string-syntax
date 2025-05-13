@@ -14,7 +14,7 @@
 	],
 	"repository": {
 		"sql-string-single": {
-			"begin": "(/\\*sql\\*/)\\s*(')",
+			"begin": "(/\\*\\s?sql\\s?\\*/)\\s*(')",
 			"end": "(')",
 			"beginCaptures": {
 				"1": {
@@ -47,7 +47,7 @@
 			]
 		},
 		"sql-string-double": {
-			"begin": "(/\\*sql\\*/)\\s*(\")(?!\\s*\\+)",
+			"begin": "(/\\*\\s?sql\\s?\\*/)\\s*(\")",
 			"end": "(\")",
 			"beginCaptures": {
 				"1": {
@@ -80,7 +80,7 @@
 			]
 		},
 		"sql-string-template": {
-			"begin": "(/\\*sql\\*/)\\s*(`)",
+			"begin": "(/\\*\\s?sql\\s?\\*/)\\s*(`)",
 			"end": "(`)",
 			"beginCaptures": {
 				"1": {

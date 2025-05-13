@@ -1,17 +1,18 @@
 # JS String Syntax
 
-**JS String Syntax** is a Visual Studio Code extension that highlights HTML and SQL embedded in JS strings. The extension automatically infers HTML and SQL content by default, while also supporting explicit language markers (`/*html*/` and `/*sql*/`) to identify and apply syntax highlighting to HTML content and SQL queries.
+**JS String Syntax** is a Visual Studio Code extension that highlights HTML, XML/SVG, and SQL embedded in JS strings. The extension automatically infers content by default, while also supporting explicit language markers to identify and apply syntax highlighting.
 
 ## Features
 
-- **Automatic Language Detection**: Infers and highlights HTML and SQL content in JS strings without requiring explicit markers.
-- **Explicit Language Markers**: Supports `/*html*/`, and `/*sql*/` comments for explicit language specification when needed.
+- **Automatic Language Detection**: Infers and highlights HTML, XML/SVG, and SQL content in JS strings without requiring explicit markers.
+- **Explicit Language Markers**: Supports comment-based language markers (e.g., `/*html*/`, `/*xml*/`, `/*sql*/`) for explicit language specification when needed.
 - **Compatibility with Other Editors**: The use of language markers does not interfere with syntax in other editors or IDEs.
 - **Multiple String Types**: Works with all JavaScript string types including single quotes (`'`), double quotes (`"`), and template literals (`` ` ``).
 
 ### Current Support
 
 - **HTML** (auto-detected and with explicit marker)
+- **XML/SVG** (auto-detected and with explicit marker)
 - **SQL** (auto-detected and with explicit marker)
 
 ### Example
@@ -23,10 +24,6 @@
 #### SQL Example
 
 ![sql](./images/sql_example.png)
-
-```js
-const query = /*sql*/ `SET TRANSACTION ISOLATION LEVEL READ COMMITTED`;
-```
 
 Visual Studio Code will apply HTML, and SQL syntax highlighting to the content of the strings, improving readability and streamlining development.
 
