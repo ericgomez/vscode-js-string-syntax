@@ -1,8 +1,8 @@
 {
   "name": "js-string-syntax",
   "displayName": "JS String Syntax",
-  "description": "Syntax highlighting for HTML and SQL inside JavaScript strings",
-  "version": "0.1.6",
+  "description": "Syntax highlighting for HTML and SQL inside JavaScript and TypeScript strings",
+  "version": "0.1.7",
   "publisher": "ericgomez",
   "icon": "images/logo.png",
   "license": "MIT",
@@ -19,9 +19,7 @@
         "scopeName": "source.js.inference",
         "injectTo": [
           "source.js",
-          "source.ts",
-          "source.jsx",
-          "source.tsx"
+          "source.ts"
         ],
         "embeddedLanguages": {
           "text.html.embedded.js": "html",
@@ -72,6 +70,7 @@
   },
   "keywords": [
     "javascript",
+    "typescript",
     "html",
     "sql",
     "highlight",
