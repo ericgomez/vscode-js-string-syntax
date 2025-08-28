@@ -1,288 +1,288 @@
 {
-    "scopeName": "source.js.selector",
-    "injectionSelector": "L:source.js -comment -(string -meta.embedded), L:source.jsx -comment -(string -meta.embedded), L:source.js.jsx -comment -(string -meta.embedded), L:source.ts -comment -(string -meta.embedded), L:source.tsx -comment -(string -meta.embedded)",
-    "patterns": [
-        {
-            "match": "(\\$)(\\.)",
-            "captures": {
-                "1": {
-                    "name": "entity.name.function.js"
-                },
-                "2": {
-                    "name": "punctuation.accessor.js"
-                }
-            }
+  "scopeName": "source.js.selector",
+  "injectionSelector": "L:source.js -comment -(string -meta.embedded), L:source.jsx -comment -(string -meta.embedded), L:source.js.jsx -comment -(string -meta.embedded), L:source.ts -comment -(string -meta.embedded), L:source.tsx -comment -(string -meta.embedded)",
+  "patterns": [
+    {
+      "match": "(\\$)(\\.)",
+      "captures": {
+        "1": {
+          "name": "entity.name.function.js"
         },
-        {
-            "match": "(\\$|jQuery)(\\()(['])([^']*)(['])(\\))(;)?",
-            "captures": {
-                "1": {
-                    "name": "entity.name.function.js"
-                },
-                "2": {
-                    "name": "meta.brace.round.js"
-                },
-                "3": {
-                    "name": "string.quoted.single.js"
-                },
-                "4": {
-                    "patterns": [
-                        {
-                            "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
-                            "captures": {
-                                "1": {
-                                    "name": "string.quoted.single.js selector.text.js"
-                                },
-                                "2": {
-                                    "name": "string.quoted.single.js selector.operator.js"
-                                },
-                                "3": {
-                                    "name": "string.quoted.single.js selector.number.js"
-                                },
-                                "4": {
-                                    "name": "string.quoted.single.js selector.operator.js"
-                                }
-                            }
-                        },
-                        {
-                            "match": "([$()*+,.=:>\\[\\]^~])",
-                            "name": "string.quoted.single.js selector.operator.js"
-                        },
-                        {
-                            "match": "(['\"])([^'\"]+)(['\"])",
-                            "captures": {
-                                "1": {
-                                    "name": "string.quoted.single.js"
-                                },
-                                "2": {
-                                    "name": "string.quoted.single.js selector.attribute.value.js"
-                                },
-                                "3": {
-                                    "name": "string.quoted.single.js"
-                                }
-                            }
-                        },
-                        {
-                            "match": "([#a-zA-Z0-9_-]+)",
-                            "name": "string.quoted.single.js selector.text.js"
-                        }
-                    ]
-                },
-                "5": {
-                    "name": "string.quoted.single.js"
-                },
-                "6": {
-                    "name": "meta.brace.round.js"
-                },
-                "7": {
-                    "name": "punctuation.terminator.statement.js"
-                }
-            }
-        },
-        {
-            "match": "(\\$|jQuery)(\\()([\"'])([^\"']*)([\"'])(\\))(;)?",
-            "captures": {
-                "1": {
-                    "name": "entity.name.function.js"
-                },
-                "2": {
-                    "name": "meta.brace.round.js"
-                },
-                "3": {
-                    "name": "string.quoted.double.js"
-                },
-                "4": {
-                    "patterns": [
-                        {
-                            "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
-                            "captures": {
-                                "1": {
-                                    "name": "string.quoted.double.js selector.text.js"
-                                },
-                                "2": {
-                                    "name": "string.quoted.double.js selector.operator.js"
-                                },
-                                "3": {
-                                    "name": "string.quoted.double.js selector.number.js"
-                                },
-                                "4": {
-                                    "name": "string.quoted.double.js selector.operator.js"
-                                }
-                            }
-                        },
-                        {
-                            "match": "([$()*+,.=:>\\[\\]^~])",
-                            "name": "string.quoted.double.js selector.operator.js"
-                        },
-                        {
-                            "match": "(['\"])([^'\"]+)(['\"])",
-                            "captures": {
-                                "1": {
-                                    "name": "string.quoted.double.js"
-                                },
-                                "2": {
-                                    "name": "string.quoted.double.js selector.attribute.value.js"
-                                },
-                                "3": {
-                                    "name": "string.quoted.double.js"
-                                }
-                            }
-                        },
-                        {
-                            "match": "([#a-zA-Z0-9_-]+)",
-                            "name": "string.quoted.double.js selector.text.js"
-                        }
-                    ]
-                },
-                "5": {
-                    "name": "string.quoted.double.js"
-                },
-                "6": {
-                    "name": "meta.brace.round.js"
-                },
-                "7": {
-                    "name": "punctuation.terminator.statement.js"
-                }
-            }
-        },
-        {
-            "match": "([a-zA-Z_$][a-zA-Z0-9_$]*)\\.(querySelector|querySelectorAll)(\\()(['])([^']*)(['])(\\))(;)?",
-            "captures": {
-                "1": {
-                    "name": "variable.other.object.js"
-                },
-                "2": {
-                    "name": "entity.name.function.js"
-                },
-                "3": {
-                    "name": "meta.brace.round.js"
-                },
-                "4": {
-                    "name": "string.quoted.single.js"
-                },
-                "5": {
-                    "patterns": [
-                        {
-                            "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
-                            "captures": {
-                                "1": {
-                                    "name": "string.quoted.single.js selector.text.js"
-                                },
-                                "2": {
-                                    "name": "string.quoted.single.js selector.operator.js"
-                                },
-                                "3": {
-                                    "name": "string.quoted.single.js selector.number.js"
-                                },
-                                "4": {
-                                    "name": "string.quoted.single.js selector.operator.js"
-                                }
-                            }
-                        },
-                        {
-                            "match": "([$()*+,.=:>\\[\\]^~])",
-                            "name": "string.quoted.single.js selector.operator.js"
-                        },
-                        {
-                            "match": "(['\"])([^'\"]+)(['\"])",
-                            "captures": {
-                                "1": {
-                                    "name": "string.quoted.single.js"
-                                },
-                                "2": {
-                                    "name": "string.quoted.single.js selector.attribute.value.js"
-                                },
-                                "3": {
-                                    "name": "string.quoted.single.js"
-                                }
-                            }
-                        },
-                        {
-                            "match": "([#a-zA-Z0-9_-]+)",
-                            "name": "string.quoted.single.js selector.text.js"
-                        }
-                    ]
-                },
-                "6": {
-                    "name": "string.quoted.single.js"
-                },
-                "7": {
-                    "name": "meta.brace.round.js"
-                },
-                "8": {
-                    "name": "punctuation.terminator.statement.js"
-                }
-            }
-        },
-        {
-            "match": "([a-zA-Z_$][a-zA-Z0-9_$]*)\\.(querySelector|querySelectorAll)(\\()([\"'])([^\"']*)([\"'])(\\))(;)?",
-            "captures": {
-                "1": {
-                    "name": "variable.other.object.js"
-                },
-                "2": {
-                    "name": "entity.name.function.js"
-                },
-                "3": {
-                    "name": "meta.brace.round.js"
-                },
-                "4": {
-                    "name": "string.quoted.double.js"
-                },
-                "5": {
-                    "patterns": [
-                        {
-                            "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
-                            "captures": {
-                                "1": {
-                                    "name": "string.quoted.double.js selector.text.js"
-                                },
-                                "2": {
-                                    "name": "string.quoted.double.js selector.operator.js"
-                                },
-                                "3": {
-                                    "name": "string.quoted.double.js selector.number.js"
-                                },
-                                "4": {
-                                    "name": "string.quoted.double.js selector.operator.js"
-                                }
-                            }
-                        },
-                        {
-                            "match": "([$()*+,.=:>\\[\\]^~])",
-                            "name": "string.quoted.double.js selector.operator.js"
-                        },
-                        {
-                            "match": "(['\"])([^'\"]+)(['\"])",
-                            "captures": {
-                                "1": {
-                                    "name": "string.quoted.double.js"
-                                },
-                                "2": {
-                                    "name": "string.quoted.double.js selector.attribute.value.js"
-                                },
-                                "3": {
-                                    "name": "string.quoted.double.js"
-                                }
-                            }
-                        },
-                        {
-                            "match": "([#a-zA-Z0-9_-]+)",
-                            "name": "string.quoted.double.js selector.text.js"
-                        }
-                    ]
-                },
-                "6": {
-                    "name": "string.quoted.double.js"
-                },
-                "7": {
-                    "name": "meta.brace.round.js"
-                },
-                "8": {
-                    "name": "punctuation.terminator.statement.js"
-                }
-            }
+        "2": {
+          "name": "punctuation.accessor.js"
         }
-    ],
-    "name": "Selector String"
+      }
+    },
+    {
+      "match": "(\\$|jQuery)(\\()(['])([^']*)(['])(\\))(;)?",
+      "captures": {
+        "1": {
+          "name": "entity.name.function.js"
+        },
+        "2": {
+          "name": "meta.brace.round.js"
+        },
+        "3": {
+          "name": "string.quoted.single.js"
+        },
+        "4": {
+          "patterns": [
+            {
+              "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
+              "captures": {
+                "1": {
+                  "name": "string.quoted.single.js selector.text.js"
+                },
+                "2": {
+                  "name": "string.quoted.single.js selector.operator.js"
+                },
+                "3": {
+                  "name": "string.quoted.single.js selector.number.js"
+                },
+                "4": {
+                  "name": "string.quoted.single.js selector.operator.js"
+                }
+              }
+            },
+            {
+              "match": "([$()*+,.=:>\\[\\]^~])",
+              "name": "string.quoted.single.js selector.operator.js"
+            },
+            {
+              "match": "(['\"])([^'\"]+)(['\"])",
+              "captures": {
+                "1": {
+                  "name": "string.quoted.single.js"
+                },
+                "2": {
+                  "name": "string.quoted.single.js selector.attribute.value.js"
+                },
+                "3": {
+                  "name": "string.quoted.single.js"
+                }
+              }
+            },
+            {
+              "match": "([#a-zA-Z0-9_-]+)",
+              "name": "string.quoted.single.js selector.text.js"
+            }
+          ]
+        },
+        "5": {
+          "name": "string.quoted.single.js"
+        },
+        "6": {
+          "name": "meta.brace.round.js"
+        },
+        "7": {
+          "name": "punctuation.terminator.statement.js"
+        }
+      }
+    },
+    {
+      "match": "(\\$|jQuery)(\\()([\"'])([^\"']*)([\"'])(\\))(;)?",
+      "captures": {
+        "1": {
+          "name": "entity.name.function.js"
+        },
+        "2": {
+          "name": "meta.brace.round.js"
+        },
+        "3": {
+          "name": "string.quoted.double.js"
+        },
+        "4": {
+          "patterns": [
+            {
+              "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
+              "captures": {
+                "1": {
+                  "name": "string.quoted.double.js selector.text.js"
+                },
+                "2": {
+                  "name": "string.quoted.double.js selector.operator.js"
+                },
+                "3": {
+                  "name": "string.quoted.double.js selector.number.js"
+                },
+                "4": {
+                  "name": "string.quoted.double.js selector.operator.js"
+                }
+              }
+            },
+            {
+              "match": "([$()*+,.=:>\\[\\]^~])",
+              "name": "string.quoted.double.js selector.operator.js"
+            },
+            {
+              "match": "(['\"])([^'\"]+)(['\"])",
+              "captures": {
+                "1": {
+                  "name": "string.quoted.double.js"
+                },
+                "2": {
+                  "name": "string.quoted.double.js selector.attribute.value.js"
+                },
+                "3": {
+                  "name": "string.quoted.double.js"
+                }
+              }
+            },
+            {
+              "match": "([#a-zA-Z0-9_-]+)",
+              "name": "string.quoted.double.js selector.text.js"
+            }
+          ]
+        },
+        "5": {
+          "name": "string.quoted.double.js"
+        },
+        "6": {
+          "name": "meta.brace.round.js"
+        },
+        "7": {
+          "name": "punctuation.terminator.statement.js"
+        }
+      }
+    },
+    {
+      "match": "([a-zA-Z_$][a-zA-Z0-9_$]*)\\.(querySelector|querySelectorAll)(\\()(['])([^']*)(['])(\\))(;)?",
+      "captures": {
+        "1": {
+          "name": "variable.other.object.js"
+        },
+        "2": {
+          "name": "entity.name.function.js"
+        },
+        "3": {
+          "name": "meta.brace.round.js"
+        },
+        "4": {
+          "name": "string.quoted.single.js"
+        },
+        "5": {
+          "patterns": [
+            {
+              "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
+              "captures": {
+                "1": {
+                  "name": "string.quoted.single.js selector.text.js"
+                },
+                "2": {
+                  "name": "string.quoted.single.js selector.operator.js"
+                },
+                "3": {
+                  "name": "string.quoted.single.js selector.number.js"
+                },
+                "4": {
+                  "name": "string.quoted.single.js selector.operator.js"
+                }
+              }
+            },
+            {
+              "match": "([$()*+,.=:>\\[\\]^~])",
+              "name": "string.quoted.single.js selector.operator.js"
+            },
+            {
+              "match": "(['\"])([^'\"]+)(['\"])",
+              "captures": {
+                "1": {
+                  "name": "string.quoted.single.js"
+                },
+                "2": {
+                  "name": "string.quoted.single.js selector.attribute.value.js"
+                },
+                "3": {
+                  "name": "string.quoted.single.js"
+                }
+              }
+            },
+            {
+              "match": "([#a-zA-Z0-9_-]+)",
+              "name": "string.quoted.single.js selector.text.js"
+            }
+          ]
+        },
+        "6": {
+          "name": "string.quoted.single.js"
+        },
+        "7": {
+          "name": "meta.brace.round.js"
+        },
+        "8": {
+          "name": "punctuation.terminator.statement.js"
+        }
+      }
+    },
+    {
+      "match": "([a-zA-Z_$][a-zA-Z0-9_$]*)\\.(querySelector|querySelectorAll)(\\()([\"'])([^\"']*)([\"'])(\\))(;)?",
+      "captures": {
+        "1": {
+          "name": "variable.other.object.js"
+        },
+        "2": {
+          "name": "entity.name.function.js"
+        },
+        "3": {
+          "name": "meta.brace.round.js"
+        },
+        "4": {
+          "name": "string.quoted.double.js"
+        },
+        "5": {
+          "patterns": [
+            {
+              "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
+              "captures": {
+                "1": {
+                  "name": "string.quoted.double.js selector.text.js"
+                },
+                "2": {
+                  "name": "string.quoted.double.js selector.operator.js"
+                },
+                "3": {
+                  "name": "string.quoted.double.js selector.number.js"
+                },
+                "4": {
+                  "name": "string.quoted.double.js selector.operator.js"
+                }
+              }
+            },
+            {
+              "match": "([$()*+,.=:>\\[\\]^~])",
+              "name": "string.quoted.double.js selector.operator.js"
+            },
+            {
+              "match": "(['\"])([^'\"]+)(['\"])",
+              "captures": {
+                "1": {
+                  "name": "string.quoted.double.js"
+                },
+                "2": {
+                  "name": "string.quoted.double.js selector.attribute.value.js"
+                },
+                "3": {
+                  "name": "string.quoted.double.js"
+                }
+              }
+            },
+            {
+              "match": "([#a-zA-Z0-9_-]+)",
+              "name": "string.quoted.double.js selector.text.js"
+            }
+          ]
+        },
+        "6": {
+          "name": "string.quoted.double.js"
+        },
+        "7": {
+          "name": "meta.brace.round.js"
+        },
+        "8": {
+          "name": "punctuation.terminator.statement.js"
+        }
+      }
+    }
+  ],
+  "name": "Selector String"
 }

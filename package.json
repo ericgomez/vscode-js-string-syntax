@@ -2,7 +2,7 @@
   "name": "js-string-syntax",
   "displayName": "JS String Syntax",
   "description": "Syntax highlighting for HTML and SQL inside JavaScript and TypeScript strings",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "publisher": "ericgomez",
   "icon": "images/logo.png",
   "license": "MIT",
@@ -59,6 +59,16 @@
       {
         "path": "./syntaxes/js-sql.tmLanguage.json",
         "scopeName": "source.js.sql",
+        "injectTo": [
+          "source.js",
+          "source.ts",
+          "source.jsx",
+          "source.tsx"
+        ]
+      },
+      {
+        "path": "./syntaxes/js-css.tmLanguage.json",
+        "scopeName": "source.js.css",
         "injectTo": [
           "source.js",
           "source.ts",

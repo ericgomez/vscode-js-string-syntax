@@ -1,572 +1,572 @@
 {
-    "scopeName": "source.js.inference",
-    "injectionSelector": "L:source.js -comment -(string -meta.embedded), L:source.ts -comment -(string -meta.embedded)",
-    "patterns": [
-        {
-            "include": "#inference-string-single"
-        },
-        {
-            "include": "#inference-string-double"
-        },
-        {
-            "include": "#inference-string-template"
-        }
-    ],
-    "repository": {
-        "inference-string-single": {
-            "begin": "(')",
-            "end": "(')",
-            "beginCaptures": {
-                "1": {
-                    "name": "string.quoted.single.js punctuation.definition.string.begin.js"
-                }
-            },
-            "endCaptures": {
-                "1": {
-                    "name": "string.quoted.single.js punctuation.definition.string.end.js"
-                }
-            },
-            "contentName": "string.quoted.single.js",
-            "patterns": [
-                {
-                    "include": "#escape-string-single"
-                },
-                {
-                    "include": "#embedded-xml-single"
-                },
-                {
-                    "include": "#embedded-html-single"
-                },
-                {
-                    "include": "#embedded-sql-single"
-                }
-            ]
-        },
-        "inference-string-double": {
-            "begin": "(\")",
-            "end": "(\")",
-            "beginCaptures": {
-                "1": {
-                    "name": "string.quoted.double.js punctuation.definition.string.begin.js"
-                }
-            },
-            "endCaptures": {
-                "1": {
-                    "name": "string.quoted.double.js punctuation.definition.string.end.js"
-                }
-            },
-            "contentName": "string.quoted.double.js",
-            "patterns": [
-                {
-                    "include": "#escape-string-double"
-                },
-                {
-                    "include": "#embedded-xml-double"
-                },
-                {
-                    "include": "#embedded-html-double"
-                },
-                {
-                    "include": "#embedded-sql-double"
-                }
-            ]
-        },
-        "inference-string-template": {
-            "begin": "(`)",
-            "end": "(`)",
-            "beginCaptures": {
-                "1": {
-                    "name": "string.template.js punctuation.definition.string.template.begin.js"
-                }
-            },
-            "endCaptures": {
-                "1": {
-                    "name": "string.template.js punctuation.definition.string.template.end.js"
-                }
-            },
-            "contentName": "string.template.js",
-            "patterns": [
-                {
-                    "include": "#escape-string-template"
-                },
-                {
-                    "include": "#embedded-xml-template"
-                },
-                {
-                    "include": "#embedded-html-template"
-                },
-                {
-                    "include": "#embedded-sql-template"
-                },
-                {
-                    "include": "#js-interpolation"
-                }
-            ]
-        },
-        "embedded-xml-single": {
-            "begin": "(?<=')\\s*((<)(\\?xml|svg))",
-            "end": "(?=')",
-            "beginCaptures": {
-                "1": {
-                    "name": "meta.tag.xml"
-                },
-                "2": {
-                    "name": "punctuation.definition.tag.begin.xml"
-                },
-                "3": {
-                    "name": "entity.name.tag.xml"
-                }
-            },
-            "contentName": "text.xml.embedded.js",
-            "patterns": [
-                {
-                    "match": "\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?",
-                    "captures": {
-                        "1": {
-                            "name": "entity.other.attribute-name.xml"
-                        },
-                        "2": {
-                            "name": "punctuation.separator.key-value.xml"
-                        },
-                        "3": {
-                            "name": "string.quoted.double.xml"
-                        },
-                        "4": {
-                            "name": "string.quoted.single.xml"
-                        },
-                        "5": {
-                            "name": "string.unquoted.xml"
-                        }
-                    }
-                },
-                {
-                    "match": "(\\?>|>|/>)",
-                    "name": "punctuation.definition.tag.end.xml"
-                },
-                {
-                    "include": "#escape-string-single"
-                },
-                {
-                    "include": "text.xml"
-                }
-            ]
-        },
-        "embedded-xml-double": {
-            "begin": "(?<=\")\\s*((<)(\\?xml|svg))",
-            "end": "(?=\")",
-            "beginCaptures": {
-                "1": {
-                    "name": "meta.tag.xml"
-                },
-                "2": {
-                    "name": "punctuation.definition.tag.begin.xml"
-                },
-                "3": {
-                    "name": "entity.name.tag.xml"
-                }
-            },
-            "contentName": "text.xml.embedded.js",
-            "patterns": [
-                {
-                    "match": "\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?",
-                    "captures": {
-                        "1": {
-                            "name": "entity.other.attribute-name.xml"
-                        },
-                        "2": {
-                            "name": "punctuation.separator.key-value.xml"
-                        },
-                        "3": {
-                            "name": "string.quoted.double.xml"
-                        },
-                        "4": {
-                            "name": "string.quoted.single.xml"
-                        },
-                        "5": {
-                            "name": "string.unquoted.xml"
-                        }
-                    }
-                },
-                {
-                    "match": "(\\?>|>|/>)",
-                    "name": "punctuation.definition.tag.end.xml"
-                },
-                {
-                    "include": "#escape-string-double"
-                },
-                {
-                    "include": "text.xml"
-                }
-            ]
-        },
-        "embedded-xml-template": {
-            "begin": "((<)(\\?xml|svg))",
-            "end": "(?=`)",
-            "beginCaptures": {
-                "1": {
-                    "name": "meta.tag.xml"
-                },
-                "2": {
-                    "name": "punctuation.definition.tag.begin.xml"
-                },
-                "3": {
-                    "name": "entity.name.tag.xml"
-                }
-            },
-            "contentName": "text.xml.embedded.js",
-            "patterns": [
-                {
-                    "include": "#xml-tag-attributes"
-                },
-                {
-                    "match": "(\\?>|>|/>)",
-                    "name": "punctuation.definition.tag.end.xml"
-                },
-                {
-                    "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
-                    "end": "(?=(>))",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "punctuation.definition.tag.begin.xml"
-                        },
-                        "2": {
-                            "name": "entity.name.tag.xml"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#xml-tag-attributes"
-                        },
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                },
-                {
-                    "include": "#escape-string-template"
-                },
-                {
-                    "include": "#js-interpolation"
-                },
-                {
-                    "include": "text.xml"
-                }
-            ]
-        },
-        "xml-tag-attributes": {
-            "match": "\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?",
-            "captures": {
-                "1": {
-                    "name": "entity.other.attribute-name.xml"
-                },
-                "2": {
-                    "name": "punctuation.separator.key-value.xml"
-                },
-                "3": {
-                    "name": "string.quoted.double.xml",
-                    "patterns": [
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                },
-                "4": {
-                    "name": "string.quoted.single.xml",
-                    "patterns": [
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                },
-                "5": {
-                    "name": "string.unquoted.xml",
-                    "patterns": [
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                }
-            }
-        },
-        "embedded-html-single": {
-            "begin": "(?<=')\\s*(<)(/?[a-zA-Z][a-zA-Z0-9:-]*)",
-            "end": "(?=')",
-            "beginCaptures": {
-                "1": {
-                    "name": "punctuation.definition.tag.begin.html"
-                },
-                "2": {
-                    "name": "entity.name.tag.html"
-                }
-            },
-            "contentName": "text.html.embedded.js",
-            "patterns": [
-                {
-                    "match": "\\s*([a-zA-Z][a-zA-Z0-9]*)(?:(=)(?:(\"[^\"]*\")|([^\\s>]*)))?",
-                    "captures": {
-                        "1": {
-                            "name": "entity.other.attribute-name.html"
-                        },
-                        "2": {
-                            "name": "punctuation.separator.key-value.html"
-                        },
-                        "3": {
-                            "name": "string.quoted.double.html"
-                        },
-                        "4": {
-                            "name": "string.unquoted.html"
-                        }
-                    }
-                },
-                {
-                    "match": "\\s*(/>|>)",
-                    "name": "punctuation.definition.tag.end.html"
-                },
-                {
-                    "include": "#escape-string-single"
-                },
-                {
-                    "include": "text.html.basic"
-                }
-            ]
-        },
-        "embedded-html-double": {
-            "begin": "(?<=\")\\s*(<)(/?[a-zA-Z][a-zA-Z0-9:-]*)",
-            "end": "(?=\")",
-            "beginCaptures": {
-                "1": {
-                    "name": "punctuation.definition.tag.begin.html"
-                },
-                "2": {
-                    "name": "entity.name.tag.html"
-                }
-            },
-            "contentName": "text.html.embedded.js",
-            "patterns": [
-                {
-                    "match": "\\s*([a-zA-Z][a-zA-Z0-9]*)(?:(=)(?:('[^']*')|([^\\s>]*)))?",
-                    "captures": {
-                        "1": {
-                            "name": "entity.other.attribute-name.html"
-                        },
-                        "2": {
-                            "name": "punctuation.separator.key-value.html"
-                        },
-                        "3": {
-                            "name": "string.quoted.single.html"
-                        },
-                        "4": {
-                            "name": "string.unquoted.html"
-                        }
-                    }
-                },
-                {
-                    "match": "\\s*(/>|>)",
-                    "name": "punctuation.definition.tag.end.html"
-                },
-                {
-                    "include": "#escape-string-double"
-                },
-                {
-                    "include": "text.html.basic"
-                }
-            ]
-        },
-        "embedded-html-template": {
-            "begin": "(<)([a-zA-Z][a-zA-Z0-9:-]*)",
-            "end": "(?=`)",
-            "beginCaptures": {
-                "1": {
-                    "name": "punctuation.definition.tag.begin.html"
-                },
-                "2": {
-                    "name": "entity.name.tag.html"
-                }
-            },
-            "contentName": "text.html.embedded.js",
-            "patterns": [
-                {
-                    "include": "#html-tag-attributes"
-                },
-                {
-                    "match": "\\s*(/>|>)",
-                    "name": "punctuation.definition.tag.end.html"
-                },
-                {
-                    "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
-                    "end": "(?=(>))",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "punctuation.definition.tag.begin.html"
-                        },
-                        "2": {
-                            "name": "entity.name.tag.html"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#html-tag-attributes"
-                        },
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                },
-                {
-                    "include": "#escape-string-template"
-                },
-                {
-                    "include": "#js-interpolation"
-                },
-                {
-                    "include": "text.html.basic"
-                }
-            ]
-        },
-        "html-tag-attributes": {
-            "match": "\\s+([a-zA-Z][a-zA-Z0-9-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?",
-            "captures": {
-                "1": {
-                    "name": "entity.other.attribute-name.html"
-                },
-                "2": {
-                    "name": "punctuation.separator.key-value.html"
-                },
-                "3": {
-                    "name": "string.quoted.double.html",
-                    "patterns": [
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                },
-                "4": {
-                    "name": "string.quoted.single.html",
-                    "patterns": [
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                },
-                "5": {
-                    "name": "string.unquoted.html",
-                    "patterns": [
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                }
-            }
-        },
-        "embedded-sql-single": {
-            "begin": "(?<=')\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TRUNCATE|GRANT|REVOKE|START\\s+TRANSACTION|BEGIN|COMMIT|ROLLBACK|SAVEPOINT)\\b",
-            "end": "(?=')",
-            "beginCaptures": {
-                "1": {
-                    "name": "keyword.other.sql"
-                }
-            },
-            "contentName": "source.sql.embedded.js",
-            "patterns": [
-                {
-                    "include": "#escape-string-single"
-                },
-                {
-                    "include": "source.sql"
-                }
-            ]
-        },
-        "embedded-sql-double": {
-            "begin": "(?<=\")\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TRUNCATE|GRANT|REVOKE|START\\s+TRANSACTION|BEGIN|COMMIT|ROLLBACK|SAVEPOINT)\\b",
-            "end": "(?=\")",
-            "beginCaptures": {
-                "1": {
-                    "name": "keyword.other.sql"
-                }
-            },
-            "contentName": "source.sql.embedded.js",
-            "patterns": [
-                {
-                    "include": "#escape-string-double"
-                },
-                {
-                    "include": "source.sql"
-                }
-            ]
-        },
-        "embedded-sql-template": {
-            "begin": "(?:(?<=`)(?:\\s*)|^\\s*)(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TRUNCATE|GRANT|REVOKE|START\\s+TRANSACTION|BEGIN|COMMIT|ROLLBACK|SAVEPOINT)\\b",
-            "end": "(?=`)",
-            "beginCaptures": {
-                "1": {
-                    "name": "keyword.other.sql"
-                }
-            },
-            "contentName": "source.sql.embedded.js",
-            "patterns": [
-                {
-                    "begin": "'",
-                    "end": "'",
-                    "name": "string.quoted.single.sql",
-                    "patterns": [
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                },
-                {
-                    "begin": "\"",
-                    "end": "\"",
-                    "name": "string.quoted.double.sql",
-                    "patterns": [
-                        {
-                            "include": "#js-interpolation"
-                        }
-                    ]
-                },
-                {
-                    "include": "#escape-string-template"
-                },
-                {
-                    "include": "#js-interpolation"
-                },
-                {
-                    "include": "source.sql"
-                }
-            ]
-        },
-        "js-interpolation": {
-            "name": "meta.template.expression.js",
-            "begin": "\\${",
-            "beginCaptures": {
-                "0": {
-                    "name": "punctuation.definition.template-expression.begin.js"
-                }
-            },
-            "end": "}",
-            "endCaptures": {
-                "0": {
-                    "name": "punctuation.definition.template-expression.end.js"
-                }
-            },
-            "contentName": "source.js.embedded.expression",
-            "patterns": [
-                {
-                    "include": "source.js"
-                }
-            ]
-        },
-        "escape-string-single": {
-            "match": "\\\\(['\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
-            "name": "constant.character.escape.php"
-        },
-        "escape-string-double": {
-            "match": "\\\\([\"\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
-            "name": "constant.character.escape.php"
-        },
-        "escape-string-template": {
-            "match": "\\\\(['\"\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
-            "name": "constant.character.escape.php"
-        }
+  "scopeName": "source.js.inference",
+  "injectionSelector": "L:source.js -comment -(string -meta.embedded), L:source.ts -comment -(string -meta.embedded)",
+  "patterns": [
+    {
+      "include": "#inference-string-single"
+    },
+    {
+      "include": "#inference-string-double"
+    },
+    {
+      "include": "#inference-string-template"
     }
+  ],
+  "repository": {
+    "inference-string-single": {
+      "begin": "(')",
+      "end": "(')",
+      "beginCaptures": {
+        "1": {
+          "name": "string.quoted.single.js punctuation.definition.string.begin.js"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "string.quoted.single.js punctuation.definition.string.end.js"
+        }
+      },
+      "contentName": "string.quoted.single.js",
+      "patterns": [
+        {
+          "include": "#escape-string-single"
+        },
+        {
+          "include": "#embedded-xml-single"
+        },
+        {
+          "include": "#embedded-html-single"
+        },
+        {
+          "include": "#embedded-sql-single"
+        }
+      ]
+    },
+    "inference-string-double": {
+      "begin": "(\")",
+      "end": "(\")",
+      "beginCaptures": {
+        "1": {
+          "name": "string.quoted.double.js punctuation.definition.string.begin.js"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "string.quoted.double.js punctuation.definition.string.end.js"
+        }
+      },
+      "contentName": "string.quoted.double.js",
+      "patterns": [
+        {
+          "include": "#escape-string-double"
+        },
+        {
+          "include": "#embedded-xml-double"
+        },
+        {
+          "include": "#embedded-html-double"
+        },
+        {
+          "include": "#embedded-sql-double"
+        }
+      ]
+    },
+    "inference-string-template": {
+      "begin": "(`)",
+      "end": "(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "string.template.js punctuation.definition.string.template.begin.js"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "string.template.js punctuation.definition.string.template.end.js"
+        }
+      },
+      "contentName": "string.template.js",
+      "patterns": [
+        {
+          "include": "#escape-string-template"
+        },
+        {
+          "include": "#embedded-xml-template"
+        },
+        {
+          "include": "#embedded-html-template"
+        },
+        {
+          "include": "#embedded-sql-template"
+        },
+        {
+          "include": "#js-interpolation"
+        }
+      ]
+    },
+    "embedded-xml-single": {
+      "begin": "(?<=')\\s*((<)(\\?xml|svg))",
+      "end": "(?=')",
+      "beginCaptures": {
+        "1": {
+          "name": "meta.tag.xml"
+        },
+        "2": {
+          "name": "punctuation.definition.tag.begin.xml"
+        },
+        "3": {
+          "name": "entity.name.tag.xml"
+        }
+      },
+      "contentName": "text.xml.embedded.js",
+      "patterns": [
+        {
+          "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?(?=[^<]*>)",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.xml"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.xml"
+            },
+            "3": {
+              "name": "string.quoted.double.xml"
+            },
+            "4": {
+              "name": "string.quoted.single.xml"
+            },
+            "5": {
+              "name": "string.unquoted.xml"
+            }
+          }
+        },
+        {
+          "match": "(\\?>|>|/>)",
+          "name": "punctuation.definition.tag.end.xml"
+        },
+        {
+          "include": "#escape-string-single"
+        },
+        {
+          "include": "text.xml"
+        }
+      ]
+    },
+    "embedded-xml-double": {
+      "begin": "(?<=\")\\s*((<)(\\?xml|svg))",
+      "end": "(?=\")",
+      "beginCaptures": {
+        "1": {
+          "name": "meta.tag.xml"
+        },
+        "2": {
+          "name": "punctuation.definition.tag.begin.xml"
+        },
+        "3": {
+          "name": "entity.name.tag.xml"
+        }
+      },
+      "contentName": "text.xml.embedded.js",
+      "patterns": [
+        {
+          "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?(?=[^<]*>)",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.xml"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.xml"
+            },
+            "3": {
+              "name": "string.quoted.double.xml"
+            },
+            "4": {
+              "name": "string.quoted.single.xml"
+            },
+            "5": {
+              "name": "string.unquoted.xml"
+            }
+          }
+        },
+        {
+          "match": "(\\?>|>|/>)",
+          "name": "punctuation.definition.tag.end.xml"
+        },
+        {
+          "include": "#escape-string-double"
+        },
+        {
+          "include": "text.xml"
+        }
+      ]
+    },
+    "embedded-xml-template": {
+      "begin": "((<)(\\?xml|svg))",
+      "end": "(?=`)",
+      "beginCaptures": {
+        "1": {
+          "name": "meta.tag.xml"
+        },
+        "2": {
+          "name": "punctuation.definition.tag.begin.xml"
+        },
+        "3": {
+          "name": "entity.name.tag.xml"
+        }
+      },
+      "contentName": "text.xml.embedded.js",
+      "patterns": [
+        {
+          "include": "#xml-tag-attributes"
+        },
+        {
+          "match": "(\\?>|>|/>)",
+          "name": "punctuation.definition.tag.end.xml"
+        },
+        {
+          "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
+          "end": "(?=(>))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.xml"
+            },
+            "2": {
+              "name": "entity.name.tag.xml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#xml-tag-attributes"
+            },
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        {
+          "include": "#escape-string-template"
+        },
+        {
+          "include": "#js-interpolation"
+        },
+        {
+          "include": "text.xml"
+        }
+      ]
+    },
+    "xml-tag-attributes": {
+      "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?(?=[^<]*>)",
+      "captures": {
+        "1": {
+          "name": "entity.other.attribute-name.xml"
+        },
+        "2": {
+          "name": "punctuation.separator.key-value.xml"
+        },
+        "3": {
+          "name": "string.quoted.double.xml",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        "4": {
+          "name": "string.quoted.single.xml",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        "5": {
+          "name": "string.unquoted.xml",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        }
+      }
+    },
+    "embedded-html-single": {
+      "begin": "(?<=')\\s*(<)(/?[a-zA-Z][a-zA-Z0-9:-]*)",
+      "end": "(?=')",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.html"
+        },
+        "2": {
+          "name": "entity.name.tag.html"
+        }
+      },
+      "contentName": "text.html.embedded.js",
+      "patterns": [
+        {
+          "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9-]*)(?:(=)(?:(\"[^\"]*\")|([^\\s>]*)))?(?=[^<]*>)",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.html"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.html"
+            },
+            "3": {
+              "name": "string.quoted.double.html"
+            },
+            "4": {
+              "name": "string.unquoted.html"
+            }
+          }
+        },
+        {
+          "match": "\\s*(/>|>)",
+          "name": "punctuation.definition.tag.end.html"
+        },
+        {
+          "include": "#escape-string-single"
+        },
+        {
+          "include": "text.html.basic"
+        }
+      ]
+    },
+    "embedded-html-double": {
+      "begin": "(?<=\")\\s*(<)(/?[a-zA-Z][a-zA-Z0-9:-]*)",
+      "end": "(?=\")",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.html"
+        },
+        "2": {
+          "name": "entity.name.tag.html"
+        }
+      },
+      "contentName": "text.html.embedded.js",
+      "patterns": [
+        {
+          "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9-]*)(?:(=)(?:('[^']*')|([^\\s>]*)))?(?=[^<]*>)",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.html"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.html"
+            },
+            "3": {
+              "name": "string.quoted.single.html"
+            },
+            "4": {
+              "name": "string.unquoted.html"
+            }
+          }
+        },
+        {
+          "match": "\\s*(/>|>)",
+          "name": "punctuation.definition.tag.end.html"
+        },
+        {
+          "include": "#escape-string-double"
+        },
+        {
+          "include": "text.html.basic"
+        }
+      ]
+    },
+    "embedded-html-template": {
+      "begin": "(<)([a-zA-Z][a-zA-Z0-9:-]*)",
+      "end": "(?=`)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.html"
+        },
+        "2": {
+          "name": "entity.name.tag.html"
+        }
+      },
+      "contentName": "text.html.embedded.js",
+      "patterns": [
+        {
+          "include": "#html-tag-attributes"
+        },
+        {
+          "match": "\\s*(/>|>)",
+          "name": "punctuation.definition.tag.end.html"
+        },
+        {
+          "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
+          "end": "(?=(>))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.html"
+            },
+            "2": {
+              "name": "entity.name.tag.html"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#html-tag-attributes"
+            },
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        {
+          "include": "#escape-string-template"
+        },
+        {
+          "include": "#js-interpolation"
+        },
+        {
+          "include": "text.html.basic"
+        }
+      ]
+    },
+    "html-tag-attributes": {
+      "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?(?=[^<]*>)",
+      "captures": {
+        "1": {
+          "name": "entity.other.attribute-name.html"
+        },
+        "2": {
+          "name": "punctuation.separator.key-value.html"
+        },
+        "3": {
+          "name": "string.quoted.double.html",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        "4": {
+          "name": "string.quoted.single.html",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        "5": {
+          "name": "string.unquoted.html",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        }
+      }
+    },
+    "embedded-sql-single": {
+      "begin": "(?<=')\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TRUNCATE|GRANT|REVOKE|START\\s+TRANSACTION|BEGIN|COMMIT|ROLLBACK|SAVEPOINT)\\b",
+      "end": "(?=')",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.sql"
+        }
+      },
+      "contentName": "source.sql.embedded.js",
+      "patterns": [
+        {
+          "include": "#escape-string-single"
+        },
+        {
+          "include": "source.sql"
+        }
+      ]
+    },
+    "embedded-sql-double": {
+      "begin": "(?<=\")\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TRUNCATE|GRANT|REVOKE|START\\s+TRANSACTION|BEGIN|COMMIT|ROLLBACK|SAVEPOINT)\\b",
+      "end": "(?=\")",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.sql"
+        }
+      },
+      "contentName": "source.sql.embedded.js",
+      "patterns": [
+        {
+          "include": "#escape-string-double"
+        },
+        {
+          "include": "source.sql"
+        }
+      ]
+    },
+    "embedded-sql-template": {
+      "begin": "(?:(?<=`)(?:\\s*)|^\\s*)(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TRUNCATE|GRANT|REVOKE|START\\s+TRANSACTION|BEGIN|COMMIT|ROLLBACK|SAVEPOINT)\\b",
+      "end": "(?=`)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.sql"
+        }
+      },
+      "contentName": "source.sql.embedded.js",
+      "patterns": [
+        {
+          "begin": "'",
+          "end": "'",
+          "name": "string.quoted.single.sql",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        {
+          "begin": "\"",
+          "end": "\"",
+          "name": "string.quoted.double.sql",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        {
+          "include": "#escape-string-template"
+        },
+        {
+          "include": "#js-interpolation"
+        },
+        {
+          "include": "source.sql"
+        }
+      ]
+    },
+    "js-interpolation": {
+      "name": "meta.template.expression.js",
+      "begin": "\\${",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.begin.js"
+        }
+      },
+      "end": "}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.end.js"
+        }
+      },
+      "contentName": "source.js.embedded.expression",
+      "patterns": [
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    "escape-string-single": {
+      "match": "\\\\(['\\\\/bfnrtv0]|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|x[0-9A-Fa-f]{2})",
+      "name": "constant.character.escape.js"
+    },
+    "escape-string-double": {
+      "match": "\\\\([\"\\\\/bfnrtv0]|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|x[0-9A-Fa-f]{2})",
+      "name": "constant.character.escape.js"
+    },
+    "escape-string-template": {
+      "match": "\\\\([`\"\\\\$\\/bfnrtv0]|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|x[0-9A-Fa-f]{2})",
+      "name": "constant.character.escape.js"
+    }
+  }
 }

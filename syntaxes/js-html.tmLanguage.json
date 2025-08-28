@@ -1,212 +1,212 @@
 {
-	"scopeName": "source.js.html",
-	"injectionSelector": "L:source.js -comment -(string -meta.embedded), L:source.jsx -comment -(string -meta.embedded), L:source.js.jsx -comment -(string -meta.embedded), L:source.ts -comment -(string -meta.embedded), L:source.tsx -comment -(string -meta.embedded)",
-	"patterns": [
-		{
-			"include": "#html-string-single"
-		},
-		{
-			"include": "#html-string-double"
-		},
-		{
-			"include": "#html-string-template"
-		}
-	],
-	"repository": {
-		"html-string-single": {
-			"begin": "(/\\*\\s?html\\s?\\*/)\\s*(')",
-			"end": "(')",
-			"beginCaptures": {
-				"1": {
-					"name": "comment.block.js"
-				},
-				"2": {
-					"name": "string.quoted.single.js punctuation.definition.string.begin.js"
-				}
-			},
-			"endCaptures": {
-				"1": {
-					"name": "string.quoted.single.js punctuation.definition.string.end.js"
-				}
-			},
-			"contentName": "string.quoted.single.js",
-			"patterns": [
-				{
-					"begin": "(?<=')",
-					"end": "(?=')",
-					"contentName": "text.html.embedded.js",
-					"patterns": [
-						{
-							"include": "#escape-string-single"
-						},
-						{
-							"include": "text.html.basic"
-						}
-					]
-				}
-			]
-		},
-		"html-string-double": {
-			"begin": "(/\\*\\s?html\\s?\\*/)\\s*(\")",
-			"end": "(\")",
-			"beginCaptures": {
-				"1": {
-					"name": "comment.block.js"
-				},
-				"2": {
-					"name": "string.quoted.double.js punctuation.definition.string.begin.js"
-				}
-			},
-			"endCaptures": {
-				"1": {
-					"name": "string.quoted.double.js punctuation.definition.string.end.js"
-				}
-			},
-			"contentName": "string.quoted.double.js",
-			"patterns": [
-				{
-					"begin": "(?<=\")",
-					"end": "(?=\")",
-					"contentName": "text.html.embedded.js",
-					"patterns": [
-						{
-							"include": "#escape-string-double"
-						},
-						{
-							"include": "text.html.basic"
-						}
-					]
-				}
-			]
-		},
-		"html-string-template": {
-			"begin": "(/\\*\\s?html\\s?\\*/)\\s*(`)",
-			"end": "(`)",
-			"beginCaptures": {
-				"1": {
-					"name": "comment.block.js"
-				},
-				"2": {
-					"name": "string.template.js punctuation.definition.string.template.begin.js"
-				}
-			},
-			"endCaptures": {
-				"1": {
-					"name": "string.template.js punctuation.definition.string.template.end.js"
-				}
-			},
-			"contentName": "string.template.js",
-			"patterns": [
-				{
-					"begin": "(?<=`)",
-					"end": "(?=`)",
-					"contentName": "text.html.embedded.js",
-					"patterns": [
-						{
-							"begin": "(<)(/?[a-zA-Z][a-zA-Z0-9]*)",
-							"beginCaptures": {
-								"1": {
-									"name": "punctuation.definition.tag.begin.html"
-								},
-								"2": {
-									"name": "entity.name.tag.html"
-								}
-							},
-							"end": "(>)",
-							"endCaptures": {
-								"1": {
-									"name": "punctuation.definition.tag.end.html"
-								}
-							},
-							"patterns": [
-								{
-									"include": "#html-tag-attributes"
-								},
-								{
-									"include": "#js-interpolation"
-								}
-							]
-						},
-						{
-							"include": "#escape-string-template"
-						},
-						{
-							"include": "#js-interpolation"
-						},
-						{
-							"include": "text.html.basic"
-						}
-					]
-				}
-			]
-		},
-		"html-tag-attributes": {
-			"match": "\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?",
-			"captures": {
-				"1": {
-					"name": "entity.other.attribute-name.html"
-				},
-				"2": {
-					"name": "punctuation.separator.key-value.html"
-				},
-				"3": {
-					"name": "string.quoted.double.html",
-					"patterns": [
-						{
-							"include": "#js-interpolation"
-						}
-					]
-				},
-				"4": {
-					"name": "string.quoted.single.html",
-					"patterns": [
-						{
-							"include": "#js-interpolation"
-						}
-					]
-				},
-				"5": {
-					"name": "string.unquoted.html",
-					"patterns": [
-						{
-							"include": "#js-interpolation"
-						}
-					]
-				}
-			}
-		},
-		"js-interpolation": {
-			"name": "meta.template.expression.js",
-			"begin": "\\${",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.definition.template-expression.begin.js"
-				}
-			},
-			"end": "}",
-			"endCaptures": {
-				"0": {
-					"name": "punctuation.definition.template-expression.end.js"
-				}
-			},
-			"contentName": "source.js.embedded.expression",
-			"patterns": [
-				{
-					"include": "source.js"
-				}
-			]
-		},
-		"escape-string-single": {
-			"match": "\\\\(['\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
-			"name": "constant.character.escape.php"
-		},
-		"escape-string-double": {
-			"match": "\\\\([\"\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
-			"name": "constant.character.escape.php"
-		},
-		"escape-string-template": {
-			"match": "\\\\(['\"\\\\nrtvef$]|[0-7]{1,3}|x[0-9A-Fa-f]{1,2})",
-			"name": "constant.character.escape.php"
-		}
-	}
+  "scopeName": "source.js.html",
+  "injectionSelector": "L:source.js -comment -(string -meta.embedded), L:source.jsx -comment -(string -meta.embedded), L:source.js.jsx -comment -(string -meta.embedded), L:source.ts -comment -(string -meta.embedded), L:source.tsx -comment -(string -meta.embedded)",
+  "patterns": [
+    {
+      "include": "#html-string-single"
+    },
+    {
+      "include": "#html-string-double"
+    },
+    {
+      "include": "#html-string-template"
+    }
+  ],
+  "repository": {
+    "html-string-single": {
+      "begin": "(/\\*\\s?html\\s?\\*/)\\s*(')",
+      "end": "(')",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.js"
+        },
+        "2": {
+          "name": "string.quoted.single.js punctuation.definition.string.begin.js"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "string.quoted.single.js punctuation.definition.string.end.js"
+        }
+      },
+      "contentName": "string.quoted.single.js",
+      "patterns": [
+        {
+          "begin": "(?<=')",
+          "end": "(?=')",
+          "contentName": "text.html.embedded.js",
+          "patterns": [
+            {
+              "include": "#escape-string-single"
+            },
+            {
+              "include": "text.html.basic"
+            }
+          ]
+        }
+      ]
+    },
+    "html-string-double": {
+      "begin": "(/\\*\\s?html\\s?\\*/)\\s*(\")",
+      "end": "(\")",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.js"
+        },
+        "2": {
+          "name": "string.quoted.double.js punctuation.definition.string.begin.js"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "string.quoted.double.js punctuation.definition.string.end.js"
+        }
+      },
+      "contentName": "string.quoted.double.js",
+      "patterns": [
+        {
+          "begin": "(?<=\")",
+          "end": "(?=\")",
+          "contentName": "text.html.embedded.js",
+          "patterns": [
+            {
+              "include": "#escape-string-double"
+            },
+            {
+              "include": "text.html.basic"
+            }
+          ]
+        }
+      ]
+    },
+    "html-string-template": {
+      "begin": "(/\\*\\s?html\\s?\\*/)\\s*(`)",
+      "end": "(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.js"
+        },
+        "2": {
+          "name": "string.template.js punctuation.definition.string.template.begin.js"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "string.template.js punctuation.definition.string.template.end.js"
+        }
+      },
+      "contentName": "string.template.js",
+      "patterns": [
+        {
+          "begin": "(?<=`)",
+          "end": "(?=`)",
+          "contentName": "text.html.embedded.js",
+          "patterns": [
+            {
+              "begin": "(<)(/?[a-zA-Z][a-zA-Z0-9]*)",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                  "name": "entity.name.tag.html"
+                }
+              },
+              "end": "(>)",
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.end.html"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "#html-tag-attributes"
+                },
+                {
+                  "include": "#js-interpolation"
+                }
+              ]
+            },
+            {
+              "include": "#escape-string-template"
+            },
+            {
+              "include": "#js-interpolation"
+            },
+            {
+              "include": "text.html.basic"
+            }
+          ]
+        }
+      ]
+    },
+    "html-tag-attributes": {
+      "match": "\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?",
+      "captures": {
+        "1": {
+          "name": "entity.other.attribute-name.html"
+        },
+        "2": {
+          "name": "punctuation.separator.key-value.html"
+        },
+        "3": {
+          "name": "string.quoted.double.html",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        "4": {
+          "name": "string.quoted.single.html",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        },
+        "5": {
+          "name": "string.unquoted.html",
+          "patterns": [
+            {
+              "include": "#js-interpolation"
+            }
+          ]
+        }
+      }
+    },
+    "js-interpolation": {
+      "name": "meta.template.expression.js",
+      "begin": "\\${",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.begin.js"
+        }
+      },
+      "end": "}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.end.js"
+        }
+      },
+      "contentName": "source.js.embedded.expression",
+      "patterns": [
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    "escape-string-single": {
+      "match": "\\\\(['\\\\/bfnrtv0]|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|x[0-9A-Fa-f]{2})",
+      "name": "constant.character.escape.js"
+    },
+    "escape-string-double": {
+      "match": "\\\\([\"\\\\/bfnrtv0]|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|x[0-9A-Fa-f]{2})",
+      "name": "constant.character.escape.js"
+    },
+    "escape-string-template": {
+      "match": "\\\\([`\"\\\\/bfnrtv0]|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|x[0-9A-Fa-f]{2})",
+      "name": "constant.character.escape.js"
+    }
+  }
 }
