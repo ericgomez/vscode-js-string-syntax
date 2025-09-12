@@ -5,7 +5,7 @@
 ## Features
 
 - **Automatic Language Detection**: Infers and highlights HTML, XML/SVG, and SQL content in JavaScript and TypeScript strings without requiring explicit markers.
-- **Explicit Language Markers**: Supports comment-based language markers (e.g., `/*html*/`, `/*xml*/`, `/*sql*/`, `/*css*/`) for explicit language specification when needed.
+- **Explicit Language Markers**: Supports comment-based language markers (e.g., `/*html*/`, `/*xml*/`, `/*svg*/`, `/*sql*/`, `/*css*/`) for explicit language specification when needed.
 - **Compatibility with Other Editors**: The use of language markers does not interfere with syntax in other editors or IDEs.
 - **Multiple String Types**: Works with all JavaScript/TypeScript string types including single quotes (`'`), double quotes (`"`), and template literals (`` ` ``).
 

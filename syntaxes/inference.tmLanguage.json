@@ -1,6 +1,6 @@
 {
   "scopeName": "source.js.inference",
-  "injectionSelector": "L:source.js -comment -(string -meta.embedded), L:source.ts -comment -(string -meta.embedded)",
+  "injectionSelector": "L:source.js -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx, L:source.ts -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx",
   "patterns": [
     {
       "include": "#inference-string-single"
@@ -120,7 +120,7 @@
       "contentName": "text.xml.embedded.js",
       "patterns": [
         {
-          "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?(?=[^<]*>)",
+          "match": "(?<=<[^>]*?)(?:\\s+([a-zA-Z][a-zA-Z0-9-]+)(?:(=)(?:(\"[^\"']*\"?)|([^\\s>\"'=<]+))?)?)|(\\s*(/>|>))",
           "captures": {
             "1": {
               "name": "entity.other.attribute-name.xml"
@@ -132,16 +132,12 @@
               "name": "string.quoted.double.xml"
             },
             "4": {
-              "name": "string.quoted.single.xml"
+              "name": "string.unquoted.xml"
             },
             "5": {
-              "name": "string.unquoted.xml"
+              "name": "punctuation.definition.tag.end.xml"
             }
           }
-        },
-        {
-          "match": "(\\?>|>|/>)",
-          "name": "punctuation.definition.tag.end.xml"
         },
         {
           "include": "#escape-string-single"
@@ -168,7 +164,7 @@
       "contentName": "text.xml.embedded.js",
       "patterns": [
         {
-          "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9:-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?(?=[^<]*>)",
+          "match": "(?<=<[^>]*?)(?:\\s+([a-zA-Z][a-zA-Z0-9-]+)(?:(=)(?:('[^'\"]*'?)|([^\\s>'\"=<]+))?)?)|(\\s*(/>|>))",
           "captures": {
             "1": {
               "name": "entity.other.attribute-name.xml"
@@ -177,19 +173,15 @@
               "name": "punctuation.separator.key-value.xml"
             },
             "3": {
-              "name": "string.quoted.double.xml"
-            },
-            "4": {
               "name": "string.quoted.single.xml"
             },
-            "5": {
+            "4": {
               "name": "string.unquoted.xml"
+            },
+            "5": {
+              "name": "punctuation.definition.tag.end.xml"
             }
           }
-        },
-        {
-          "match": "(\\?>|>|/>)",
-          "name": "punctuation.definition.tag.end.xml"
         },
         {
           "include": "#escape-string-double"
@@ -302,7 +294,7 @@
       "contentName": "text.html.embedded.js",
       "patterns": [
         {
-          "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9-]*)(?:(=)(?:(\"[^\"]*\")|([^\\s>]*)))?(?=[^<]*>)",
+          "match": "(?<=<[^>]*?)(?:\\s+([a-zA-Z][a-zA-Z0-9-]+)(?:(=)(?:(\"[^\"']*\"?)|([^\\s>\"'=<]+))?)?)|(\\s*(/>|>))",
           "captures": {
             "1": {
               "name": "entity.other.attribute-name.html"
@@ -315,12 +307,11 @@
             },
             "4": {
               "name": "string.unquoted.html"
+            },
+            "5": {
+              "name": "punctuation.definition.tag.end.html"
             }
           }
-        },
-        {
-          "match": "\\s*(/>|>)",
-          "name": "punctuation.definition.tag.end.html"
         },
         {
           "include": "#escape-string-single"
@@ -344,7 +335,7 @@
       "contentName": "text.html.embedded.js",
       "patterns": [
         {
-          "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9-]*)(?:(=)(?:('[^']*')|([^\\s>]*)))?(?=[^<]*>)",
+          "match": "(?<=<[^>]*?)(?:\\s+([a-zA-Z][a-zA-Z0-9-]+)(?:(=)(?:('[^'\"]*'?)|([^\\s>'\"=<]+))?)?)|(\\s*(/>|>))",
           "captures": {
             "1": {
               "name": "entity.other.attribute-name.html"
@@ -357,12 +348,11 @@
             },
             "4": {
               "name": "string.unquoted.html"
+            },
+            "5": {
+              "name": "punctuation.definition.tag.end.html"
             }
           }
-        },
-        {
-          "match": "\\s*(/>|>)",
-          "name": "punctuation.definition.tag.end.html"
         },
         {
           "include": "#escape-string-double"
@@ -424,7 +414,7 @@
       ]
     },
     "html-tag-attributes": {
-      "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9-]*)(?:(=)(?:(\"[^\"]*\")|('[^']*')|([^\\s>]*)))?(?=[^<]*>)",
+      "match": "(?<=<[^>]*?)\\s+([a-zA-Z][a-zA-Z0-9-]*)(?:(=)(?:(\"[^\"']*\")|('[^\"']*')|([^\\s>]*)))?(?=[^<]*>)",
       "captures": {
         "1": {
           "name": "entity.other.attribute-name.html"

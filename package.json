@@ -1,8 +1,8 @@
 {
   "name": "js-string-syntax",
   "displayName": "JS String Syntax",
-  "description": "Syntax highlighting for HTML and SQL inside JavaScript and TypeScript strings",
-  "version": "0.1.8",
+  "description": "Syntax highlighting for HTML, XML/SVG, SQL, and CSS inside JavaScript and TypeScript strings",
+  "version": "0.1.9",
   "publisher": "ericgomez",
   "icon": "images/logo.png",
   "license": "MIT",
@@ -23,7 +23,8 @@
         ],
         "embeddedLanguages": {
           "text.html.embedded.js": "html",
-          "source.sql.embedded.js": "sql"
+          "source.sql.embedded.js": "sql",
+          "text.xml.embedded.js": "xml"
         }
       },
       {
@@ -33,7 +34,8 @@
           "source.js",
           "source.ts",
           "source.jsx",
-          "source.tsx"
+          "source.tsx",
+          "source.js.jsx"
         ]
       },
       {
@@ -43,7 +45,8 @@
           "source.js",
           "source.ts",
           "source.jsx",
-          "source.tsx"
+          "source.tsx",
+          "source.js.jsx"
         ]
       },
       {
@@ -53,7 +56,8 @@
           "source.js",
           "source.ts",
           "source.jsx",
-          "source.tsx"
+          "source.tsx",
+          "source.js.jsx"
         ]
       },
       {
@@ -63,7 +67,8 @@
           "source.js",
           "source.ts",
           "source.jsx",
-          "source.tsx"
+          "source.tsx",
+          "source.js.jsx"
         ]
       },
       {
@@ -73,7 +78,8 @@
           "source.js",
           "source.ts",
           "source.jsx",
-          "source.tsx"
+          "source.tsx",
+          "source.js.jsx"
         ]
       }
     ]
@@ -83,6 +89,9 @@
     "typescript",
     "html",
     "sql",
+    "css",
+    "xml",
+    "svg",
     "highlight",
     "string",
     "syntax"
