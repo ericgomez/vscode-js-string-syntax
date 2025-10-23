@@ -1,6 +1,6 @@
 {
   "scopeName": "source.js.inference",
-  "injectionSelector": "L:source.js -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx, L:source.ts -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx",
+  "injectionSelector": "L:source.js -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx -meta.template.expression.js, L:source.ts -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx -meta.template.expression.js",
   "patterns": [
     {
       "include": "#inference-string-single"

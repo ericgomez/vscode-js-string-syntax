@@ -2,7 +2,7 @@
   "name": "js-string-syntax",
   "displayName": "JS String Syntax",
   "description": "Syntax highlighting for HTML, XML/SVG, SQL, and CSS inside JavaScript and TypeScript strings",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "publisher": "ericgomez",
   "icon": "images/logo.png",
   "license": "MIT",
@@ -80,6 +80,14 @@
           "source.jsx",
           "source.tsx",
           "source.js.jsx"
+        ]
+      },
+      {
+        "path": "./syntaxes/decorator.tmLanguage.json",
+        "scopeName": "source.ts.decorator",
+        "injectTo": [
+          "source.js",
+          "source.ts"
         ]
       }
     ]
