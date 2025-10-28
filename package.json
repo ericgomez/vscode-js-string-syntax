@@ -1,8 +1,8 @@
 {
   "name": "js-string-syntax",
-  "displayName": "JS String Syntax",
-  "description": "Syntax highlighting for HTML, XML/SVG, SQL, and CSS inside JavaScript and TypeScript strings",
-  "version": "0.1.10",
+  "displayName": "JS/TS String Syntax",
+  "description": "Syntax highlighting for JavaScript and TypeScript strings containing HTML, XML/SVG, SQL, and CSS",
+  "version": "0.1.11",
   "publisher": "ericgomez",
   "icon": "images/logo.png",
   "license": "MIT",
@@ -102,7 +102,16 @@
     "svg",
     "highlight",
     "string",
-    "syntax"
+    "syntax",
+    "template",
+    "template string",
+    "template literal",
+    "embedded html",
+    "inline html",
+    "html in js",
+    "html in ts",
+    "css in ts",
+    "sql in js"
   ],
   "repository": {
     "type": "git",

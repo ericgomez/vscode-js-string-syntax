@@ -115,18 +115,20 @@
       ]
     },
     "js-interpolation": {
-      "begin": "(\\${)",
-      "end": "(})",
+      "name": "meta.template.expression.js",
+      "begin": "\\$\\{",
       "beginCaptures": {
-        "1": {
+        "0": {
           "name": "punctuation.definition.template-expression.begin.js"
         }
       },
+      "end": "\\}",
       "endCaptures": {
-        "1": {
+        "0": {
           "name": "punctuation.definition.template-expression.end.js"
         }
       },
+      "contentName": "meta.embedded.line.js",
       "patterns": [
         {
           "include": "source.js"

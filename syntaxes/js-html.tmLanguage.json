@@ -177,19 +177,19 @@
     },
     "js-interpolation": {
       "name": "meta.template.expression.js",
-      "begin": "\\${",
+      "begin": "\\$\\{",
       "beginCaptures": {
         "0": {
           "name": "punctuation.definition.template-expression.begin.js"
         }
       },
-      "end": "}",
+      "end": "\\}",
       "endCaptures": {
         "0": {
           "name": "punctuation.definition.template-expression.end.js"
         }
       },
-      "contentName": "source.js.embedded.expression",
+      "contentName": "meta.embedded.line.js",
       "patterns": [
         {
           "include": "source.js"

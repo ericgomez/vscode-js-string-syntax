@@ -1,6 +1,6 @@
 {
   "scopeName": "source.js.inference",
-  "injectionSelector": "L:source.js -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx -meta.template.expression.js, L:source.ts -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx -meta.template.expression.js",
+  "injectionSelector": "L:source.js -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx -meta.template.expression, L:source.ts -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.js.jsx -source.tsx -meta.template.expression",
   "patterns": [
     {
       "include": "#inference-string-single"
@@ -14,16 +14,19 @@
   ],
   "repository": {
     "inference-string-single": {
-      "begin": "(')",
-      "end": "(')",
+      "begin": "'",
+      "end": "(\\')|((?:[^\\\\\\n])$)",
       "beginCaptures": {
-        "1": {
+        "0": {
           "name": "string.quoted.single.js punctuation.definition.string.begin.js"
         }
       },
       "endCaptures": {
         "1": {
           "name": "string.quoted.single.js punctuation.definition.string.end.js"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.js"
         }
       },
       "contentName": "string.quoted.single.js",
@@ -43,16 +46,19 @@
       ]
     },
     "inference-string-double": {
-      "begin": "(\")",
-      "end": "(\")",
+      "begin": "\"",
+      "end": "(\")|((?:[^\\\\\\n])$)",
       "beginCaptures": {
-        "1": {
+        "0": {
           "name": "string.quoted.double.js punctuation.definition.string.begin.js"
         }
       },
       "endCaptures": {
         "1": {
           "name": "string.quoted.double.js punctuation.definition.string.end.js"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.js"
         }
       },
       "contentName": "string.quoted.double.js",
@@ -72,15 +78,15 @@
       ]
     },
     "inference-string-template": {
-      "begin": "(`)",
-      "end": "(`)",
+      "begin": "`",
+      "end": "`",
       "beginCaptures": {
-        "1": {
+        "0": {
           "name": "string.template.js punctuation.definition.string.template.begin.js"
         }
       },
       "endCaptures": {
-        "1": {
+        "0": {
           "name": "string.template.js punctuation.definition.string.template.end.js"
         }
       },
@@ -527,22 +533,118 @@
     },
     "js-interpolation": {
       "name": "meta.template.expression.js",
-      "begin": "\\${",
+      "begin": "\\$\\{",
       "beginCaptures": {
         "0": {
           "name": "punctuation.definition.template-expression.begin.js"
         }
       },
-      "end": "}",
+      "end": "\\}",
       "endCaptures": {
         "0": {
           "name": "punctuation.definition.template-expression.end.js"
         }
       },
-      "contentName": "source.js.embedded.expression",
+      "contentName": "meta.embedded.line.js",
       "patterns": [
         {
-          "include": "source.js"
+          "include": "#inference-expression"
+        }
+      ]
+    },
+    "inference-expression": {
+      "patterns": [
+        {
+          "include": "#inference-expressionWithoutIdentifiers"
+        },
+        {
+          "include": "source.js#identifiers"
+        },
+        {
+          "include": "source.js#expressionPunctuations"
+        }
+      ]
+    },
+    "inference-expressionWithoutIdentifiers": {
+      "patterns": [
+        {
+          "include": "source.js#jsx"
+        },
+        {
+          "include": "#inference-string-single"
+        },
+        {
+          "include": "#inference-string-double"
+        },
+        {
+          "include": "#inference-string-template"
+        },
+        {
+          "include": "source.js#regex"
+        },
+        {
+          "include": "source.js#comment"
+        },
+        {
+          "include": "source.js#function-expression"
+        },
+        {
+          "include": "source.js#class-expression"
+        },
+        {
+          "include": "source.js#arrow-function"
+        },
+        {
+          "include": "source.js#paren-expression-possibly-arrow"
+        },
+        {
+          "include": "source.js#cast"
+        },
+        {
+          "include": "#inference-ternary-expression"
+        },
+        {
+          "include": "source.js#new-expr"
+        },
+        {
+          "include": "source.js#instanceof-expr"
+        },
+        {
+          "include": "source.js#object-literal"
+        },
+        {
+          "include": "source.js#expression-operators"
+        },
+        {
+          "include": "source.js#function-call"
+        },
+        {
+          "include": "source.js#literal"
+        },
+        {
+          "include": "source.js#support-objects"
+        },
+        {
+          "include": "source.js#paren-expression"
+        }
+      ]
+    },
+    "inference-ternary-expression": {
+      "begin": "(?!\\?\\.\\s*[^[:digit:]])(\\?)(?!\\?)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.operator.ternary.js"
+        }
+      },
+      "end": "\\s*(:)",
+      "endCaptures": {
+        "1": {
+          "name": "keyword.operator.ternary.js"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#inference-expression"
         }
       ]
     },
