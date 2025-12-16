@@ -1,0 +1,313 @@
+{
+  "scopeName": "source.ts.xml",
+  "injectionSelector": "L:source.ts -comment -(string -meta.embedded), L:source.tsx -comment -(string -meta.embedded)",
+  "patterns": [
+    {
+      "include": "#xml-string-double-quoted"
+    },
+    {
+      "include": "#xml-string-single-quoted"
+    },
+    {
+      "include": "#xml-string-template"
+    }
+  ],
+  "repository": {
+    "xml-string-double-quoted": {
+      "begin": "(/\\*\\s?xml\\s?\\*/|/\\*\\s?svg\\s?\\*/)\\s*(\")",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.ts"
+        },
+        "2": {
+          "name": "punctuation.definition.string.begin.ts"
+        }
+      },
+      "end": "(\")",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.double.ts",
+      "patterns": [
+        {
+          "begin": "(?<=\")",
+          "contentName": "text.xml.embedded.ts",
+          "end": "(?=\")",
+          "name": "string.quoted.double.xml.ts",
+          "patterns": [
+            {
+              "include": "source.ts#string-character-escape"
+            },
+            {
+              "begin": "(<\\??)([a-zA-Z][a-zA-Z0-9]*)",
+              "end": "(?=(>|\\?>|\\/>)|(?=\"))",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.begin.xml"
+                },
+                "2": {
+                  "name": "entity.name.tag.xml"
+                }
+              },
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.end.xml"
+                }
+              },
+              "patterns": [
+                {
+                  "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+                  "beginCaptures": {
+                    "1": {
+                      "name": "entity.other.attribute-name.xml"
+                    },
+                    "2": {
+                      "name": "punctuation.separator.key-value.xml"
+                    }
+                  },
+                  "end": "(?<=\")|(?<=')|(?=[\\s/>]|\")",
+                  "patterns": [
+                    {
+                      "begin": "\"",
+                      "end": "\"",
+                      "name": "string.quoted.double.xml",
+                      "patterns": [
+                        {
+                          "match": "\\\\[\\\\\"]",
+                          "name": "constant.character.escape.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "begin": "'",
+                      "end": "'|(?=\")",
+                      "name": "string.quoted.single.xml",
+                      "patterns": [
+                        {
+                          "match": "\\\\[\\\\\"]",
+                          "name": "constant.character.escape.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "match": "[^\\s/>\"]+",
+                      "name": "string.unquoted.xml"
+                    }
+                  ]
+                },
+                {
+                  "match": "\\\\[\\\\\"]",
+                  "name": "constant.character.escape.ts"
+                }
+              ]
+            },
+            {
+              "include": "text.xml"
+            }
+          ]
+        }
+      ]
+    },
+    "xml-string-single-quoted": {
+      "begin": "(/\\*\\s?xml\\s?\\*/|/\\*\\s?svg\\s?\\*/)\\s*(')",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.ts"
+        },
+        "2": {
+          "name": "punctuation.definition.string.begin.ts"
+        }
+      },
+      "end": "(')",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.single.ts",
+      "patterns": [
+        {
+          "begin": "(?<=')",
+          "contentName": "text.xml.embedded.ts",
+          "end": "(?=')",
+          "name": "string.quoted.single.xml.ts",
+          "patterns": [
+            {
+              "include": "source.ts#string-character-escape"
+            },
+            {
+              "begin": "(<\\??)([a-zA-Z][a-zA-Z0-9]*)",
+              "end": "(?=(>|\\?>|\\/>)|(?='))",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.begin.xml"
+                },
+                "2": {
+                  "name": "entity.name.tag.xml"
+                }
+              },
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.end.xml"
+                }
+              },
+              "patterns": [
+                {
+                  "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+                  "beginCaptures": {
+                    "1": {
+                      "name": "entity.other.attribute-name.xml"
+                    },
+                    "2": {
+                      "name": "punctuation.separator.key-value.xml"
+                    }
+                  },
+                  "end": "(?<=\")|(?<=')|(?=[\\s/>]|')",
+                  "patterns": [
+                    {
+                      "begin": "\"",
+                      "end": "\"|(?=')",
+                      "name": "string.quoted.double.xml",
+                      "patterns": [
+                        {
+                          "match": "\\\\[\\\\']",
+                          "name": "constant.character.escape.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "begin": "'",
+                      "end": "'|(?=')",
+                      "name": "string.quoted.single.xml",
+                      "patterns": [
+                        {
+                          "match": "\\\\[\\\\']",
+                          "name": "constant.character.escape.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "match": "[^\\s/>']+",
+                      "name": "string.unquoted.xml"
+                    }
+                  ]
+                },
+                {
+                  "match": "\\\\[\\\\']",
+                  "name": "constant.character.escape.ts"
+                }
+              ]
+            },
+            {
+              "include": "text.xml"
+            }
+          ]
+        }
+      ]
+    },
+    "xml-string-template": {
+      "begin": "(/\\*\\s?xml\\s?\\*/|/\\*\\s?svg\\s?\\*/)\\s*(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.ts"
+        },
+        "2": {
+          "name": "punctuation.definition.string.template.begin.ts"
+        }
+      },
+      "end": "(`)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.template.end.ts"
+        }
+      },
+      "name": "string.template.ts",
+      "patterns": [
+        {
+          "begin": "(?<=`)",
+          "contentName": "text.xml.embedded.ts",
+          "end": "(?=`)",
+          "name": "string.template.xml.ts",
+          "patterns": [
+            {
+              "begin": "(<\\??)([a-zA-Z][a-zA-Z0-9]*)",
+              "end": "(?=(>|\\?>|\\/>)|(?=`))",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.begin.xml"
+                },
+                "2": {
+                  "name": "entity.name.tag.xml"
+                }
+              },
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.end.xml"
+                }
+              },
+              "patterns": [
+                {
+                  "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+                  "beginCaptures": {
+                    "1": {
+                      "name": "entity.other.attribute-name.xml"
+                    },
+                    "2": {
+                      "name": "punctuation.separator.key-value.xml"
+                    }
+                  },
+                  "end": "(?<=`)|(?=[\\s/>]|`)",
+                  "patterns": [
+                    {
+                      "begin": "\"",
+                      "end": "\"|(?=`)",
+                      "name": "string.quoted.double.xml",
+                      "patterns": [
+                        {
+                          "include": "source.ts.inference#template-substitution-element"
+                        }
+                      ]
+                    },
+                    {
+                      "begin": "'",
+                      "end": "'|(?=`)",
+                      "name": "string.quoted.single.xml",
+                      "patterns": [
+                        {
+                          "include": "source.ts.inference#template-substitution-element"
+                        }
+                      ]
+                    },
+                    {
+                      "match": "[^\\s/>\\`$]+",
+                      "name": "string.unquoted.xml",
+                      "patterns": [
+                        {
+                          "include": "source.ts.inference#template-substitution-element"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "include": "source.ts.inference#template-substitution-element"
+                }
+              ]
+            },
+            {
+              "include": "source.ts.inference#template-substitution-element"
+            },
+            {
+              "include": "source.ts#string-character-escape"
+            },
+            {
+              "include": "text.xml"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

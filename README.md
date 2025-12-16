@@ -1,11 +1,11 @@
-# JS String Syntax
+# JS/TS String Syntax
 
-**JS String Syntax** is a Visual Studio Code extension that highlights HTML, XML/SVG, SQL, and CSS embedded in JavaScript and TypeScript strings. The extension automatically infers HTML, XML/SVG, and SQL content by default, while CSS requires explicit language markers to identify and apply syntax highlighting.
+**JS/TS String Syntax** is a Visual Studio Code extension that highlights HTML, XML/SVG, SQL and CSS embedded in JavaScript and TypeScript strings. The extension automatically infers HTML, XML/SVG, and SQL content by default, while CSS requires explicit language markers to identify and apply syntax highlighting.
 
 ## Features
 
 - **Automatic Language Detection**: Infers and highlights HTML, XML/SVG, and SQL content in JavaScript and TypeScript strings without requiring explicit markers.
-- **Explicit Language Markers**: Supports comment-based language markers (e.g., `/*html*/`, `/*xml*/`, `/*svg*/`, `/*sql*/`, `/*css*/`) for explicit language specification when needed.
+- **Explicit Language Markers**: Supports comment-based language markers (`/*html*/`, `/*xml*/`, `/*svg*/`, `/*sql*/`, `/*css*/`) for explicit language specification when needed.
 - **Compatibility with Other Editors**: The use of language markers does not interfere with syntax in other editors or IDEs.
 - **Multiple String Types**: Works with all JavaScript/TypeScript string types including single quotes (`'`), double quotes (`"`), and template literals (`` ` ``).
 
@@ -30,7 +30,7 @@
 
 ![css](./images/css_example.png)
 
-Visual Studio Code will apply HTML, SQL, and CSS syntax highlighting to the content of the strings, improving readability and streamlining development.
+Visual Studio Code will apply HTML, XML/SVG, SQL, and CSS syntax highlighting to the content of the strings, improving readability and streamlining development.
 
 ### Customization
 
@@ -39,25 +39,17 @@ Some themes will require customizing the appearance of embedded code by adding T
 ```json
 "editor.tokenColorCustomizations": {
     "textMateRules": [
-        {
-            "scope": [
-                "string.template.js text.html.embedded.js",
-                "string.quoted.double.js text.html.embedded.js",
-                "string.quoted.single.js text.html.embedded.js",
-                "string.quoted.single.js punctuation.definition.tag.begin",
-                "string.quoted.single.js punctuation.definition.tag.end",
-                "string.quoted.double.js punctuation.definition.tag.begin",
-                "string.quoted.double.js punctuation.definition.tag.end",
-                "string.template.js punctuation.definition.tag.begin",
-                "string.template.js punctuation.definition.tag.end",
-                "string.quoted.single.js source.sql.embedded.js",
-                "string.quoted.double.js source.sql.embedded.js",
-                "string.template.js source.sql.embedded.js"
-            ],
-            "settings": {
-                "foreground": "#ABB2BF"
-            }
+      {
+        "scope": [
+          "string.quoted text.xml.embedded",
+          "string.quoted text.html.embedded",
+          "string.quoted source.sql.embedded",
+          "string.quoted source.css.embedded"
+        ],
+        "settings": {
+          "foreground": "#ABB2BF"
         }
+      },
     ]
 }
 ```
@@ -68,7 +60,7 @@ You can modify the hex color values to match your preferred color scheme.
 
 1. Open Visual Studio Code.
 2. Go to the Extensions view (Ctrl+Shift+X or Cmd+Shift+X on Mac).
-3. Search for **JS String Syntax**.
+3. Search for **JS/TS String Syntax**.
 4. Click "Install."
 
 ### Feedback
@@ -79,4 +71,4 @@ Your feedback is invaluable! If you encounter any issues or have suggestions for
 
 This extension is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 
-Enjoy coding with **JS String Syntax**! 🚀
+Enjoy coding with **JS/TS String Syntax**! 🚀

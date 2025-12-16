@@ -1,0 +1,349 @@
+{
+  "scopeName": "source.js.html",
+  "injectionSelector": "L:source.js -comment -(string -meta.embedded), L:source.jsx -comment -(string -meta.embedded), L:source.js.jsx -comment -(string -meta.embedded)",
+  "patterns": [
+    {
+      "include": "#html-string-single-quoted"
+    },
+    {
+      "include": "#html-string-double-quoted"
+    },
+    {
+      "include": "#html-string-template"
+    }
+  ],
+  "repository": {
+    "html-string-double-quoted": {
+      "begin": "(/\\*\\s?html\\s?\\*/)\\s*(\")",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.js"
+        },
+        "2": {
+          "name": "punctuation.definition.string.begin.js"
+        }
+      },
+      "end": "(\")",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.js"
+        }
+      },
+      "name": "string.quoted.double.js",
+      "patterns": [
+        {
+          "begin": "(?<=\")",
+          "contentName": "text.html.embedded.js",
+          "end": "(?=\")",
+          "name": "string.quoted.double.html.js",
+          "patterns": [
+            {
+              "include": "source.js#string-character-escape"
+            },
+            {
+              "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
+              "end": "(?=(>|\\/>)|(?=\"))",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                  "name": "entity.name.tag.html"
+                }
+              },
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.end.html"
+                }
+              },
+              "patterns": [
+                {
+                  "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+                  "beginCaptures": {
+                    "1": {
+                      "name": "entity.other.attribute-name.html"
+                    },
+                    "2": {
+                      "name": "punctuation.separator.key-value.html"
+                    }
+                  },
+                  "end": "(?<=\")|(?<=')|(?=[\\s/>]|\")",
+                  "patterns": [
+                    {
+                      "begin": "\"",
+                      "end": "\"",
+                      "name": "string.quoted.double.html",
+                      "patterns": [
+                        {
+                          "match": "\\\\[\\\\\"]",
+                          "name": "constant.character.escape.js"
+                        }
+                      ]
+                    },
+                    {
+                      "begin": "'",
+                      "end": "'|(?=\")",
+                      "name": "string.quoted.single.html",
+                      "patterns": [
+                        {
+                          "match": "\\\\[\\\\\"]",
+                          "name": "constant.character.escape.js"
+                        }
+                      ]
+                    },
+                    {
+                      "match": "[^\\s/>\"]+",
+                      "name": "string.unquoted.html",
+                      "patterns": [
+                        {
+                          "match": "\\\\[\\\\\"]",
+                          "name": "constant.character.escape.js"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "match": "\\s*([a-zA-Z0-9:-]+)",
+                  "captures": {
+                    "1": {
+                      "name": "entity.other.attribute-name.html"
+                    }
+                  }
+                },
+                {
+                  "match": "\\\\[\\\\\"]",
+                  "name": "constant.character.escape.js"
+                }
+              ]
+            },
+            {
+              "include": "text.html.basic"
+            }
+          ]
+        }
+      ]
+    },
+    "html-string-single-quoted": {
+      "begin": "(/\\*\\s?html\\s?\\*/)\\s*(')",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.js"
+        },
+        "2": {
+          "name": "punctuation.definition.string.begin.js"
+        }
+      },
+      "end": "(')",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.js"
+        }
+      },
+      "name": "string.quoted.single.js",
+      "patterns": [
+        {
+          "begin": "(?<=')",
+          "contentName": "text.html.embedded.js",
+          "end": "(?=')",
+          "name": "string.quoted.single.html.js",
+          "patterns": [
+            {
+              "include": "source.js#string-character-escape"
+            },
+            {
+              "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
+              "end": "(?=(>|\\/>)|(?='))",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                  "name": "entity.name.tag.html"
+                }
+              },
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.end.html"
+                }
+              },
+              "patterns": [
+                {
+                  "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+                  "beginCaptures": {
+                    "1": {
+                      "name": "entity.other.attribute-name.html"
+                    },
+                    "2": {
+                      "name": "punctuation.separator.key-value.html"
+                    }
+                  },
+                  "end": "(?<=\")|(?<=')|(?=[\\s/>]|')",
+                  "patterns": [
+                    {
+                      "begin": "\"",
+                      "end": "\"|(?=')",
+                      "name": "string.quoted.double.html",
+                      "patterns": [
+                        {
+                          "match": "\\\\[\\\\']",
+                          "name": "constant.character.escape.js"
+                        }
+                      ]
+                    },
+                    {
+                      "begin": "'",
+                      "end": "'|(?=')",
+                      "name": "string.quoted.single.html",
+                      "patterns": [
+                        {
+                          "match": "\\\\[\\\\']",
+                          "name": "constant.character.escape.js"
+                        }
+                      ]
+                    },
+                    {
+                      "match": "[^\\s/>']+",
+                      "name": "string.unquoted.html"
+                    }
+                  ]
+                },
+                {
+                  "match": "\\s*([a-zA-Z0-9:-]+)",
+                  "captures": {
+                    "1": {
+                      "name": "entity.other.attribute-name.html"
+                    }
+                  }
+                },
+                {
+                  "match": "\\\\[\\\\']",
+                  "name": "constant.character.escape.js"
+                }
+              ]
+            },
+            {
+              "include": "text.html.basic"
+            }
+          ]
+        }
+      ]
+    },
+    "html-string-template": {
+      "begin": "(/\\*\\s?html\\s?\\*/)\\s*(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.js"
+        },
+        "2": {
+          "name": "punctuation.definition.string.template.begin.js"
+        }
+      },
+      "end": "(`)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.template.end.js"
+        }
+      },
+      "name": "string.template.js",
+      "patterns": [
+        {
+          "begin": "(?<=`)",
+          "contentName": "text.html.embedded.js",
+          "end": "(?=`)",
+          "name": "string.template.html.js",
+          "patterns": [
+            {
+              "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
+              "end": "(?=(>|\\/>)|(?=`))",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                  "name": "entity.name.tag.html"
+                }
+              },
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.end.html"
+                }
+              },
+              "patterns": [
+                {
+                  "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+                  "beginCaptures": {
+                    "1": {
+                      "name": "entity.other.attribute-name.html"
+                    },
+                    "2": {
+                      "name": "punctuation.separator.key-value.html"
+                    }
+                  },
+                  "end": "(?<=`)|(?=[\\s/>]|`)",
+                  "patterns": [
+                    {
+                      "begin": "\"",
+                      "end": "\"|(?=`)",
+                      "name": "string.quoted.double.html",
+                      "patterns": [
+                        {
+                          "include": "source.js.inference#template-substitution-element"
+                        },
+                        {
+                          "include": "source.js#string-character-escape"
+                        }
+                      ]
+                    },
+                    {
+                      "begin": "'",
+                      "end": "'|(?=`)",
+                      "name": "string.quoted.single.html",
+                      "patterns": [
+                        {
+                          "include": "source.js.inference#template-substitution-element"
+                        },
+                        {
+                          "include": "source.js#string-character-escape"
+                        }
+                      ]
+                    },
+                    {
+                      "match": "[^\\s/>\\`$]+",
+                      "name": "string.unquoted.html",
+                      "patterns": [
+                        {
+                          "include": "source.js.inference#template-substitution-element"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "match": "\\s*([a-zA-Z0-9:-]+)",
+                  "captures": {
+                    "1": {
+                      "name": "entity.other.attribute-name.html"
+                    }
+                  }
+                },
+                {
+                  "include": "source.js.inference#template-substitution-element"
+                }
+              ]
+            },
+            {
+              "include": "source.js.inference#template-substitution-element"
+            },
+            {
+              "include": "source.js#string-character-escape"
+            },
+            {
+              "include": "text.html.basic"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

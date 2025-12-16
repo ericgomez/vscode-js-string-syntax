@@ -1,0 +1,912 @@
+{
+  "scopeName": "source.ts.inference",
+  "injectionSelector": "L:source.ts -comment -(string -meta.embedded) -meta.jsx -source.jsx -source.tsx -meta.template.expression",
+  "patterns": [
+    {
+      "include": "#string-double-quoted"
+    },
+    {
+      "include": "#string-single-quoted"
+    },
+    {
+      "include": "#string-template"
+    }
+  ],
+  "repository": {
+    "string-double-quoted": {
+      "begin": "\"",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.ts"
+        }
+      },
+      "end": "(\")|((?:[^\\\\\\n])$)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.ts"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.ts"
+        }
+      },
+      "name": "string.quoted.double.ts",
+      "patterns": [
+        {
+          "include": "source.ts#string-character-escape"
+        },
+        {
+          "include": "#sql-string-double-quoted"
+        },
+        {
+          "include": "#xml-string-double-quoted"
+        },
+        {
+          "include": "#html-string-double-quoted"
+        }
+      ]
+    },
+    "string-single-quoted": {
+      "begin": "'",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.ts"
+        }
+      },
+      "end": "(\\')|((?:[^\\\\\\n])$)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.ts"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.ts"
+        }
+      },
+      "name": "string.quoted.single.ts",
+      "patterns": [
+        {
+          "include": "source.ts#string-character-escape"
+        },
+        {
+          "include": "#sql-string-single-quoted"
+        },
+        {
+          "include": "#xml-string-single-quoted"
+        },
+        {
+          "include": "#html-string-single-quoted"
+        }
+      ]
+    },
+    "string-template": {
+      "begin": "`",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.template.begin.ts"
+        }
+      },
+      "end": "`",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.template.end.ts"
+        }
+      },
+      "name": "string.template.ts",
+      "patterns": [
+        {
+          "include": "#sql-string-template"
+        },
+        {
+          "include": "#xml-string-template"
+        },
+        {
+          "include": "#html-string-template"
+        },
+        {
+          "include": "#template-substitution-element"
+        },
+        {
+          "include": "source.ts#string-character-escape"
+        }
+      ]
+    },
+    "sql-string-double-quoted": {
+      "begin": "\\G\\s*(?=\\b(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER|WITH)\\b)",
+      "contentName": "source.sql.embedded.ts",
+      "end": "(?=\")",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.double.sql.ts",
+      "patterns": [
+        {
+          "match": "(#)(\\\\\"|[^\"])*(?=\"|$)",
+          "name": "comment.line.number-sign.sql",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.sql"
+            }
+          }
+        },
+        {
+          "match": "(--)(\\\\\"|[^\"])*(?=\"|$)",
+          "name": "comment.line.double-dash.sql",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.sql"
+            }
+          }
+        },
+        {
+          "match": "'(?=((\\\\')|[^'\"])*(\"|$))",
+          "name": "string.quoted.single.unclosed.sql"
+        },
+        {
+          "match": "`(?=((\\\\`)|[^`\"])*(\"|$))",
+          "name": "string.quoted.other.backtick.unclosed.sql"
+        },
+        {
+          "include": "source.sql"
+        }
+      ]
+    },
+    "xml-string-double-quoted": {
+      "begin": "\\G\\s*(?=(<\\?xml|<svg)\\b)",
+      "contentName": "text.xml.embedded.ts",
+      "end": "(?=\")",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.double.xml.ts",
+      "patterns": [
+        {
+          "include": "source.ts#string-character-escape"
+        },
+        {
+          "begin": "(<\\??)([a-zA-Z][a-zA-Z0-9]*)",
+          "end": "(?=(>|\\?>|\\/>)|(?=\"))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.xml"
+            },
+            "2": {
+              "name": "entity.name.tag.xml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.xml"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+              "beginCaptures": {
+                "1": {
+                  "name": "entity.other.attribute-name.xml"
+                },
+                "2": {
+                  "name": "punctuation.separator.key-value.xml"
+                }
+              },
+              "end": "(?<=\")|(?<=')|(?=[\\s/>]|\")",
+              "patterns": [
+                {
+                  "begin": "\"",
+                  "end": "\"",
+                  "name": "string.quoted.double.xml",
+                  "patterns": [
+                    {
+                      "match": "\\\\[\\\\\"]",
+                      "name": "constant.character.escape.ts"
+                    }
+                  ]
+                },
+                {
+                  "begin": "'",
+                  "end": "'|(?=\")",
+                  "name": "string.quoted.single.xml",
+                  "patterns": [
+                    {
+                      "match": "\\\\[\\\\\"]",
+                      "name": "constant.character.escape.ts"
+                    }
+                  ]
+                },
+                {
+                  "match": "[^\\s/>\"]+",
+                  "name": "string.unquoted.xml"
+                }
+              ]
+            },
+            {
+              "match": "\\\\[\\\\\"]",
+              "name": "constant.character.escape.ts"
+            }
+          ]
+        },
+        {
+          "include": "text.xml"
+        }
+      ]
+    },
+    "html-string-double-quoted": {
+      "begin": "\\G\\s*(?=(</?[A-Za-z][A-Za-z0-9]*)\\b)",
+      "contentName": "text.html.embedded.ts",
+      "end": "(?=\")",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.double.html.ts",
+      "patterns": [
+        {
+          "include": "source.ts#string-character-escape"
+        },
+        {
+          "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
+          "end": "(?=(>|\\/>)|(?=\"))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.html"
+            },
+            "2": {
+              "name": "entity.name.tag.html"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.html"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+              "beginCaptures": {
+                "1": {
+                  "name": "entity.other.attribute-name.html"
+                },
+                "2": {
+                  "name": "punctuation.separator.key-value.html"
+                }
+              },
+              "end": "(?<=\")|(?<=')|(?=[\\s/>]|\")",
+              "patterns": [
+                {
+                  "begin": "\"",
+                  "end": "\"",
+                  "name": "string.quoted.double.html",
+                  "patterns": [
+                    {
+                      "match": "\\\\[\\\\\"]",
+                      "name": "constant.character.escape.ts"
+                    }
+                  ]
+                },
+                {
+                  "begin": "'",
+                  "end": "'|(?=\")",
+                  "name": "string.quoted.single.html",
+                  "patterns": [
+                    {
+                      "match": "\\\\[\\\\\"]",
+                      "name": "constant.character.escape.ts"
+                    }
+                  ]
+                },
+                {
+                  "match": "[^\\s/>\"]+",
+                  "name": "string.unquoted.html",
+                  "patterns": [
+                    {
+                      "match": "\\\\[\\\\\"]",
+                      "name": "constant.character.escape.ts"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": "\\\\[\\\\\"]",
+              "name": "constant.character.escape.ts"
+            }
+          ]
+        },
+        {
+          "match": "\\s*([a-zA-Z0-9:-]+)",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.html"
+            }
+          }
+        },
+        {
+          "include": "text.html.basic"
+        }
+      ]
+    },
+    "sql-string-single-quoted": {
+      "begin": "\\G\\s*(?=\\b(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER|WITH)\\b)",
+      "contentName": "source.sql.embedded.ts",
+      "end": "(?=')",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.single.sql.ts",
+      "patterns": [
+        {
+          "match": "(#)(\\\\'|[^'])*(?='|$)",
+          "name": "comment.line.number-sign.sql",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.sql"
+            }
+          }
+        },
+        {
+          "match": "(--)(\\\\'|[^'])*(?='|$)",
+          "name": "comment.line.double-dash.sql",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.sql"
+            }
+          }
+        },
+        {
+          "match": "`(?=((\\\\`)|[^`'])*('|$))",
+          "name": "string.quoted.other.backtick.unclosed.sql"
+        },
+        {
+          "match": "\"(?=((\\\\\")|[^\"'])*('|$))",
+          "name": "string.quoted.double.unclosed.sql"
+        },
+        {
+          "include": "source.sql"
+        }
+      ]
+    },
+    "xml-string-single-quoted": {
+      "begin": "\\G\\s*(?=(<\\?xml|<svg)\\b)",
+      "contentName": "text.xml.embedded.ts",
+      "end": "(?=')",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.single.xml.ts",
+      "patterns": [
+        {
+          "include": "source.ts#string-character-escape"
+        },
+        {
+          "begin": "(<\\??)([a-zA-Z][a-zA-Z0-9]*)",
+          "end": "(?=(>|\\?>|\\/>)|(?='))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.xml"
+            },
+            "2": {
+              "name": "entity.name.tag.xml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.xml"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+              "beginCaptures": {
+                "1": {
+                  "name": "entity.other.attribute-name.xml"
+                },
+                "2": {
+                  "name": "punctuation.separator.key-value.xml"
+                }
+              },
+              "end": "(?<=\")|(?<=')|(?=[\\s/>]|')",
+              "patterns": [
+                {
+                  "begin": "\"",
+                  "end": "\"|(?=')",
+                  "name": "string.quoted.double.xml",
+                  "patterns": [
+                    {
+                      "match": "\\\\[\\\\']",
+                      "name": "constant.character.escape.ts"
+                    }
+                  ]
+                },
+                {
+                  "begin": "'",
+                  "end": "'|(?=')",
+                  "name": "string.quoted.single.xml",
+                  "patterns": [
+                    {
+                      "match": "\\\\[\\\\']",
+                      "name": "constant.character.escape.ts"
+                    }
+                  ]
+                },
+                {
+                  "match": "[^\\s/>']+",
+                  "name": "string.unquoted.xml"
+                }
+              ]
+            },
+            {
+              "match": "\\\\[\\\\']",
+              "name": "constant.character.escape.ts"
+            }
+          ]
+        },
+        {
+          "include": "text.xml"
+        }
+      ]
+    },
+    "html-string-single-quoted": {
+      "begin": "\\G\\s*(?=(</?[A-Za-z][A-Za-z0-9]*)\\b)",
+      "contentName": "text.html.embedded.ts",
+      "end": "(?=')",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.single.html.ts",
+      "patterns": [
+        {
+          "include": "source.ts#string-character-escape"
+        },
+        {
+          "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
+          "end": "(?=(>|\\/>)|(?='))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.html"
+            },
+            "2": {
+              "name": "entity.name.tag.html"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.html"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+              "beginCaptures": {
+                "1": {
+                  "name": "entity.other.attribute-name.html"
+                },
+                "2": {
+                  "name": "punctuation.separator.key-value.html"
+                }
+              },
+              "end": "(?<=\")|(?<=')|(?=[\\s/>]|')",
+              "patterns": [
+                {
+                  "begin": "\"",
+                  "end": "\"|(?=')",
+                  "name": "string.quoted.double.html",
+                  "patterns": [
+                    {
+                      "match": "\\\\[\\\\']",
+                      "name": "constant.character.escape.ts"
+                    }
+                  ]
+                },
+                {
+                  "begin": "'",
+                  "end": "'|(?=')",
+                  "name": "string.quoted.single.html",
+                  "patterns": [
+                    {
+                      "match": "\\\\[\\\\']",
+                      "name": "constant.character.escape.ts"
+                    }
+                  ]
+                },
+                {
+                  "match": "[^\\s/>']+",
+                  "name": "string.unquoted.html"
+                }
+              ]
+            },
+            {
+              "match": "\\\\[\\\\']",
+              "name": "constant.character.escape.ts"
+            }
+          ]
+        },
+        {
+          "match": "\\s*([a-zA-Z0-9:-]+)",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.html"
+            }
+          }
+        },
+        {
+          "include": "text.html.basic"
+        }
+      ]
+    },
+    "sql-string-template": {
+      "begin": "\\s*(?=\\b(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER|WITH)\\b)",
+      "contentName": "source.sql.embedded.ts",
+      "end": "(?=`)",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.template.end.ts"
+        }
+      },
+      "name": "string.template.sql.ts",
+      "patterns": [
+        {
+          "match": "(#)(\\\\`|[^`])*(?=`|$)",
+          "name": "comment.line.number-sign.sql",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.sql"
+            }
+          }
+        },
+        {
+          "match": "(--)(\\\\`|[^`])*(?=`|$)",
+          "name": "comment.line.double-dash.sql",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.sql"
+            }
+          }
+        },
+        {
+          "begin": "'",
+          "end": "'",
+          "name": "string.quoted.single.sql",
+          "patterns": [
+            {
+              "include": "source.ts#template-substitution-element"
+            }
+          ]
+        },
+        {
+          "begin": "\"",
+          "end": "\"",
+          "name": "string.quoted.double.sql",
+          "patterns": [
+            {
+              "include": "source.ts#template-substitution-element"
+            }
+          ]
+        },
+        {
+          "include": "source.ts#template-substitution-element"
+        },
+        {
+          "include": "source.ts#string-character-escape"
+        },
+        {
+          "include": "source.sql"
+        }
+      ]
+    },
+    "xml-string-template": {
+      "begin": "\\s*(?=(<\\?xml|<svg)\\b)",
+      "contentName": "text.xml.embedded.ts",
+      "end": "(?=`)",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.template.end.ts"
+        }
+      },
+      "name": "string.template.xml.ts",
+      "patterns": [
+        {
+          "begin": "(<\\??)([a-zA-Z][a-zA-Z0-9]*)",
+          "end": "(?=(>|\\?>|\\/>)|(?=`))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.xml"
+            },
+            "2": {
+              "name": "entity.name.tag.xml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.xml"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+              "beginCaptures": {
+                "1": {
+                  "name": "entity.other.attribute-name.xml"
+                },
+                "2": {
+                  "name": "punctuation.separator.key-value.xml"
+                }
+              },
+              "end": "(?<=`)|(?=[\\s/>]|`)",
+              "patterns": [
+                {
+                  "begin": "\"",
+                  "end": "\"|(?=`)",
+                  "name": "string.quoted.double.xml",
+                  "patterns": [
+                    {
+                      "include": "#template-substitution-element"
+                    }
+                  ]
+                },
+                {
+                  "begin": "'",
+                  "end": "'|(?=`)",
+                  "name": "string.quoted.single.xml",
+                  "patterns": [
+                    {
+                      "include": "#template-substitution-element"
+                    }
+                  ]
+                },
+                {
+                  "match": "[^\\s/>\\`$]+",
+                  "name": "string.unquoted.xml",
+                  "patterns": [
+                    {
+                      "include": "#template-substitution-element"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "include": "#template-substitution-element"
+            }
+          ]
+        },
+        {
+          "include": "#template-substitution-element"
+        },
+        {
+          "include": "source.ts#string-character-escape"
+        },
+        {
+          "include": "text.xml"
+        }
+      ]
+    },
+    "html-string-template": {
+      "begin": "\\s*(?=(</?[A-Za-z][A-Za-z0-9]*)\\b)",
+      "contentName": "text.html.embedded.ts",
+      "end": "(?=`)",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.template.html.ts",
+      "patterns": [
+        {
+          "begin": "(<)([a-zA-Z][a-zA-Z0-9]*)",
+          "end": "(?=(>|\\/>)|(?=`))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.html"
+            },
+            "2": {
+              "name": "entity.name.tag.html"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.html"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "\\s*([a-zA-Z0-9:-]+)\\s*(=)\\s*",
+              "beginCaptures": {
+                "1": {
+                  "name": "entity.other.attribute-name.html"
+                },
+                "2": {
+                  "name": "punctuation.separator.key-value.html"
+                }
+              },
+              "end": "(?<=`)|(?=[\\s/>]|`)",
+              "patterns": [
+                {
+                  "begin": "\"",
+                  "end": "\"|(?=`)",
+                  "name": "string.quoted.double.html",
+                  "patterns": [
+                    {
+                      "include": "#template-substitution-element"
+                    },
+                    {
+                      "include": "source.ts#string-character-escape"
+                    }
+                  ]
+                },
+                {
+                  "begin": "'",
+                  "end": "'|(?=`)",
+                  "name": "string.quoted.single.html",
+                  "patterns": [
+                    {
+                      "include": "#template-substitution-element"
+                    },
+                    {
+                      "include": "source.ts#string-character-escape"
+                    }
+                  ]
+                },
+                {
+                  "match": "[^\\s/>\\`$]+",
+                  "name": "string.unquoted.html",
+                  "patterns": [
+                    {
+                      "include": "#template-substitution-element"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": "\\s*([a-zA-Z0-9:-]+)",
+              "captures": {
+                "1": {
+                  "name": "entity.other.attribute-name.html"
+                }
+              }
+            },
+            {
+              "include": "#template-substitution-element"
+            }
+          ]
+        },
+        {
+          "include": "#template-substitution-element"
+        },
+        {
+          "include": "source.ts#string-character-escape"
+        },
+        {
+          "include": "text.html.basic"
+        }
+      ]
+    },
+    "template-substitution-element": {
+      "name": "meta.template.expression.ts",
+      "begin": "\\$\\{",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.begin.ts"
+        }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.end.ts"
+        }
+      },
+      "contentName": "meta.embedded.line.ts",
+      "patterns": [
+        {
+          "include": "#expression"
+        }
+      ]
+    },
+    "expression": {
+      "patterns": [
+        {
+          "include": "#expressionWithoutIdentifiers"
+        },
+        {
+          "include": "source.ts#identifiers"
+        },
+        {
+          "include": "source.ts#expressionPunctuations"
+        }
+      ]
+    },
+    "expressionWithoutIdentifiers": {
+      "patterns": [
+        {
+          "include": "source.ts#jsx"
+        },
+        {
+          "include": "#string-double-quoted"
+        },
+        {
+          "include": "#string-single-quoted"
+        },
+        {
+          "include": "#string-template"
+        },
+        {
+          "include": "source.ts#regex"
+        },
+        {
+          "include": "source.ts#comment"
+        },
+        {
+          "include": "source.ts#function-expression"
+        },
+        {
+          "include": "source.ts#class-expression"
+        },
+        {
+          "include": "source.ts#arrow-function"
+        },
+        {
+          "include": "source.ts#paren-expression-possibly-arrow"
+        },
+        {
+          "include": "source.ts#cast"
+        },
+        {
+          "include": "#ternary-expression"
+        },
+        {
+          "include": "source.ts#new-expr"
+        },
+        {
+          "include": "source.ts#instanceof-expr"
+        },
+        {
+          "include": "source.ts#object-literal"
+        },
+        {
+          "include": "source.ts#expression-operators"
+        },
+        {
+          "include": "source.ts#function-call"
+        },
+        {
+          "include": "source.ts#literal"
+        },
+        {
+          "include": "source.ts#support-objects"
+        },
+        {
+          "include": "source.ts#paren-expression"
+        }
+      ]
+    },
+    "ternary-expression": {
+      "begin": "(?!\\?\\.\\s*[^[:digit:]])(\\?)(?!\\?)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.operator.ternary.ts"
+        }
+      },
+      "end": "\\s*(:)",
+      "endCaptures": {
+        "1": {
+          "name": "keyword.operator.ternary.ts"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#expression"
+        }
+      ]
+    }
+  }
+}

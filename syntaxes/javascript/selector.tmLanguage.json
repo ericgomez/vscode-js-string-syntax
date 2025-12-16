@@ -1,6 +1,6 @@
 {
   "scopeName": "source.js.selector",
-  "injectionSelector": "L:source.js -comment -(string -meta.embedded) -meta.template.expression, L:source.jsx -comment -(string -meta.embedded) -meta.template.expression, L:source.js.jsx -comment -(string -meta.embedded) -meta.template.expression, L:source.ts -comment -(string -meta.embedded) -meta.template.expression, L:source.tsx -comment -(string -meta.embedded) -meta.template.expression",
+  "injectionSelector": "L:source.js -comment -(string -meta.embedded) -meta.template.expression, L:source.jsx -comment -(string -meta.embedded) -meta.template.expression, L:source.js.jsx -comment -(string -meta.embedded) -meta.template.expression",
   "patterns": [
     {
       "match": "(\\$)(\\.)",
@@ -298,7 +298,7 @@
         "4": {
           "patterns": [
             {
-              "include": "#js-interpolation"
+              "include": "source.js#template-substitution-element"
             },
             {
               "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
@@ -370,7 +370,7 @@
         "5": {
           "patterns": [
             {
-              "include": "#js-interpolation"
+              "include": "source.js#template-substitution-element"
             },
             {
               "match": "(:nth-child|:nth-of-type|:nth-last-child|:nth-last-of-type)(\\()(\\d+)(\\))",
@@ -425,28 +425,5 @@
       }
     }
   ],
-  "repository": {
-    "js-interpolation": {
-      "name": "meta.template.expression.js",
-      "begin": "\\$\\{",
-      "beginCaptures": {
-        "0": {
-          "name": "punctuation.definition.template-expression.begin.js"
-        }
-      },
-      "end": "\\}",
-      "endCaptures": {
-        "0": {
-          "name": "punctuation.definition.template-expression.end.js"
-        }
-      },
-      "contentName": "meta.embedded.line.js",
-      "patterns": [
-        {
-          "include": "source.js"
-        }
-      ]
-    }
-  },
   "name": "Selector String"
 }

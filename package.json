@@ -2,7 +2,7 @@
   "name": "js-string-syntax",
   "displayName": "JS/TS String Syntax",
   "description": "Syntax highlighting for HTML, XML/SVG, SQL, and CSS inside JavaScript and TypeScript strings",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "publisher": "ericgomez",
   "icon": "images/logo.png",
   "license": "MIT",
@@ -15,71 +15,98 @@
   "contributes": {
     "grammars": [
       {
-        "path": "./syntaxes/inference.tmLanguage.json",
+        "path": "./syntaxes/javascript/inference.tmLanguage.json",
         "scopeName": "source.js.inference",
-        "injectTo": [
-          "source.js",
-          "source.ts"
-        ],
-        "embeddedLanguages": {
-          "text.html.embedded.js": "html",
-          "source.sql.embedded.js": "sql",
-          "text.xml.embedded.js": "xml"
-        }
+        "injectTo": ["source.js"]
       },
       {
-        "path": "./syntaxes/selector.tmLanguage.json",
+        "path": "./syntaxes/typescript/inference.tmLanguage.json",
+        "scopeName": "source.ts.inference",
+        "injectTo": ["source.ts"]
+      },
+      {
+        "path": "./syntaxes/javascript/selector.tmLanguage.json",
         "scopeName": "source.js.selector",
         "injectTo": [
           "source.js",
-          "source.ts",
           "source.jsx",
-          "source.tsx",
           "source.js.jsx"
         ]
       },
       {
-        "path": "./syntaxes/js-xml.tmLanguage.json",
+        "path": "./syntaxes/typescript/selector.tmLanguage.json",
+        "scopeName": "source.ts.selector",
+        "injectTo": [
+          "source.ts",
+          "source.tsx"
+        ]
+      },
+      {
+        "path": "./syntaxes/javascript/xml.tmLanguage.json",
         "scopeName": "source.js.xml",
         "injectTo": [
           "source.js",
-          "source.ts",
           "source.jsx",
-          "source.tsx",
           "source.js.jsx"
         ]
       },
       {
-        "path": "./syntaxes/js-html.tmLanguage.json",
+        "path": "./syntaxes/typescript/xml.tmLanguage.json",
+        "scopeName": "source.ts.xml",
+        "injectTo": [
+          "source.ts",
+          "source.tsx"
+        ]
+      },
+      {
+        "path": "./syntaxes/javascript/html.tmLanguage.json",
         "scopeName": "source.js.html",
         "injectTo": [
           "source.js",
-          "source.ts",
           "source.jsx",
-          "source.tsx",
           "source.js.jsx"
         ]
       },
       {
-        "path": "./syntaxes/js-sql.tmLanguage.json",
+        "path": "./syntaxes/typescript/html.tmLanguage.json",
+        "scopeName": "source.ts.html",
+        "injectTo": [
+          "source.ts",
+          "source.tsx"
+        ]
+      },
+      {
+        "path": "./syntaxes/javascript/sql.tmLanguage.json",
         "scopeName": "source.js.sql",
         "injectTo": [
           "source.js",
-          "source.ts",
           "source.jsx",
-          "source.tsx",
           "source.js.jsx"
         ]
       },
       {
-        "path": "./syntaxes/js-css.tmLanguage.json",
+        "path": "./syntaxes/typescript/sql.tmLanguage.json",
+        "scopeName": "source.ts.sql",
+        "injectTo": [
+          "source.ts",
+          "source.tsx"
+        ]
+      },
+      {
+        "path": "./syntaxes/javascript/css.tmLanguage.json",
         "scopeName": "source.js.css",
         "injectTo": [
           "source.js",
-          "source.ts",
           "source.jsx",
-          "source.tsx",
           "source.js.jsx"
+        ]
+      },
+      {
+        "path": "./syntaxes/typescript/css.tmLanguage.json",
+        "scopeName": "source.ts.css",
+        "injectTo": [
+          "source.ts",
+          "source.tsx"
         ]
       }
     ]
@@ -100,10 +127,14 @@
     "template literal",
     "embedded html",
     "inline html",
+    "xml in js",
+    "xml in ts",
     "html in js",
     "html in ts",
-    "css in ts",
-    "sql in js"
+    "sql in js",
+    "sql in ts",
+    "css in js",
+    "css in ts"
   ],
   "repository": {
     "type": "git",

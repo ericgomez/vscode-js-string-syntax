@@ -1,0 +1,212 @@
+{
+  "scopeName": "source.ts.sql",
+  "injectionSelector": "L:source.ts -comment -(string -meta.embedded), L:source.tsx -comment -(string -meta.embedded)",
+  "patterns": [
+    {
+      "include": "#sql-string-double-quoted"
+    },
+    {
+      "include": "#sql-string-single-quoted"
+    },
+    {
+      "include": "#sql-string-template"
+    }
+  ],
+  "repository": {
+    "sql-string-double-quoted": {
+      "begin": "(/\\*\\s?sql\\s?\\*/)\\s*(\")",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.ts"
+        },
+        "2": {
+          "name": "punctuation.definition.string.begin.ts"
+        }
+      },
+      "end": "(\")",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.double.ts",
+      "patterns": [
+        {
+          "begin": "(?<=\")",
+          "contentName": "source.sql.embedded.ts",
+          "end": "(?=\")",
+          "name": "string.quoted.double.sql.ts",
+          "patterns": [
+            {
+              "include": "source.ts#string-character-escape"
+            },
+            {
+              "match": "(#)(\\\\\"|[^\"])*(?=\"|$)",
+              "name": "comment.line.number-sign.sql",
+              "captures": {
+                "1": {
+                  "name": "punctuation.definition.comment.sql"
+                }
+              }
+            },
+            {
+              "match": "(--)(\\\\\"|[^\"])*(?=\"|$)",
+              "name": "comment.line.double-dash.sql",
+              "captures": {
+                "1": {
+                  "name": "punctuation.definition.comment.sql"
+                }
+              }
+            },
+            {
+              "match": "'(?=((\\\\')|[^'\"])*(\"|$))",
+              "name": "string.quoted.single.unclosed.sql"
+            },
+            {
+              "match": "`(?=((\\\\`)|[^`\"])*(\"|$))",
+              "name": "string.quoted.other.backtick.unclosed.sql"
+            },
+            {
+              "include": "source.sql"
+            }
+          ]
+        }
+      ]
+    },
+    "sql-string-single-quoted": {
+      "begin": "(/\\*\\s?sql\\s?\\*/)\\s*(')",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.ts"
+        },
+        "2": {
+          "name": "punctuation.definition.string.begin.ts"
+        }
+      },
+      "end": "(')",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.ts"
+        }
+      },
+      "name": "string.quoted.single.ts",
+      "patterns": [
+        {
+          "begin": "(?<=')",
+          "contentName": "source.sql.embedded.ts",
+          "end": "(?=')",
+          "name": "string.quoted.single.sql.ts",
+          "patterns": [
+            {
+              "include": "source.ts#string-character-escape"
+            },
+            {
+              "match": "(#)(\\\\'|[^'])*(?='|$)",
+              "name": "comment.line.number-sign.sql",
+              "captures": {
+                "1": {
+                  "name": "punctuation.definition.comment.sql"
+                }
+              }
+            },
+            {
+              "match": "(--)(\\\\'|[^'])*(?='|$)",
+              "name": "comment.line.double-dash.sql",
+              "captures": {
+                "1": {
+                  "name": "punctuation.definition.comment.sql"
+                }
+              }
+            },
+            {
+              "match": "`(?=((\\\\`)|[^`'])*('|$))",
+              "name": "string.quoted.other.backtick.unclosed.sql"
+            },
+            {
+              "match": "\"(?=((\\\\\")|[^\"'])*('|$))",
+              "name": "string.quoted.double.unclosed.sql"
+            },
+            {
+              "include": "source.sql"
+            }
+          ]
+        }
+      ]
+    },
+    "sql-string-template": {
+      "begin": "(/\\*\\s?sql\\s?\\*/)\\s*(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "comment.block.ts"
+        },
+        "2": {
+          "name": "punctuation.definition.string.template.begin.ts"
+        }
+      },
+      "end": "(`)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.template.end.ts"
+        }
+      },
+      "name": "string.template.ts",
+      "patterns": [
+        {
+          "begin": "(?<=`)",
+          "contentName": "source.sql.embedded.ts",
+          "end": "(?=`)",
+          "name": "string.template.sql.ts",
+          "patterns": [
+            {
+              "match": "(#)(\\\\`|[^`])*(?=`|$)",
+              "name": "comment.line.number-sign.sql",
+              "captures": {
+                "1": {
+                  "name": "punctuation.definition.comment.sql"
+                }
+              }
+            },
+            {
+              "match": "(--)(\\\\`|[^`])*(?=`|$)",
+              "name": "comment.line.double-dash.sql",
+              "captures": {
+                "1": {
+                  "name": "punctuation.definition.comment.sql"
+                }
+              }
+            },
+            {
+              "begin": "'",
+              "end": "'",
+              "name": "string.quoted.single.sql",
+              "patterns": [
+                {
+                  "include": "source.ts#template-substitution-element"
+                }
+              ]
+            },
+            {
+              "begin": "\"",
+              "end": "\"",
+              "name": "string.quoted.double.sql",
+              "patterns": [
+                {
+                  "include": "source.ts#template-substitution-element"
+                }
+              ]
+            },
+            {
+              "include": "source.ts#template-substitution-element"
+            },
+            {
+              "include": "source.ts#string-character-escape"
+            },
+            {
+              "include": "source.sql"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
